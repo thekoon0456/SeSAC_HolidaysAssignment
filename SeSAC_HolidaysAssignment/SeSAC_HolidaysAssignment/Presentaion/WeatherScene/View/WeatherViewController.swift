@@ -78,11 +78,11 @@ extension WeatherViewController {
         viewModel.currentWeather.bind { weather in
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
-                weatherView.cityLabel.text = weather.name ?? ""
+                weatherView.cityLabel.text = weather.name
                 weatherView.tempLabel.text = String(format: "%.1f", (weather.main?.temp ?? 0) - 273.15)
-                weatherView.weatherStateLabel.text = weather.weather?.first?.description ?? ""
-                weatherView.highTempLabel.text = String(format: "%.1f", (weather.main?.tempMax ?? 0) - 273.15)
-                weatherView.lowTempLabel.text = String(format: "%.1f", (weather.main?.tempMin ?? 0) - 273.15)
+                weatherView.weatherStateLabel.text = weather.weather?.first?.description
+                weatherView.highTempLabel.text = "최고: " + String(format: "%.1f", (weather.main?.tempMax ?? 0) - 273.15) + "°"
+                weatherView.lowTempLabel.text = "최저: " +  String(format: "%.1f", (weather.main?.tempMin ?? 0) - 273.15) + "°"
             }
         }
     }

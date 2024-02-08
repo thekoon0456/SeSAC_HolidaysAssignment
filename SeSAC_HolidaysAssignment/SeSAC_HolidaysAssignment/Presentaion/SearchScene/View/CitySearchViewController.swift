@@ -87,14 +87,15 @@ final class CitySearchViewController: BaseViewController {
 extension CitySearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard let inputText = searchBar.text else { return }
+        guard let inputText = searchBar.text?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines),
+              let list = viewModel.cityList
+        else { return }
         
         switch inputText.isEmpty {
         case true:
-            cityList = viewModel.cityList ?? []
+            cityList = list
         case false:
-            let list = cityList
-            let searchList = list.filter { $0.name.contains(inputText) }
+            let searchList = list.filter { $0.name.lowercased().contains(inputText) }
             cityList = searchList
         }
     }
