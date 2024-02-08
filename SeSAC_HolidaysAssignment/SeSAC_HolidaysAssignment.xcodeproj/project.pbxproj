@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7CB780732B74A0D500DCA4D9 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB780722B74A0D500DCA4D9 /* Router.swift */; };
 		7CB780752B74B40900DCA4D9 /* WeatherError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB780742B74B40900DCA4D9 /* WeatherError.swift */; };
+		7CB780782B74B8B800DCA4D9 /* CityList.json in Resources */ = {isa = PBXBuildFile; fileRef = 7CB780772B74B8B800DCA4D9 /* CityList.json */; };
+		7CB7807A2B74B91800DCA4D9 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB780792B74B91800DCA4D9 /* City.swift */; };
 		7CD67BDA2B73A28F00E1A718 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD67BD92B73A28F00E1A718 /* AppDelegate.swift */; };
 		7CD67BDC2B73A28F00E1A718 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD67BDB2B73A28F00E1A718 /* SceneDelegate.swift */; };
 		7CD67BE32B73A29000E1A718 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD67BE22B73A29000E1A718 /* Assets.xcassets */; };
@@ -37,6 +39,8 @@
 /* Begin PBXFileReference section */
 		7CB780722B74A0D500DCA4D9 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		7CB780742B74B40900DCA4D9 /* WeatherError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherError.swift; sourceTree = "<group>"; };
+		7CB780772B74B8B800DCA4D9 /* CityList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CityList.json; sourceTree = "<group>"; };
+		7CB780792B74B91800DCA4D9 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		7CD67BD62B73A28F00E1A718 /* SeSAC_HolidaysAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeSAC_HolidaysAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD67BD92B73A28F00E1A718 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CD67BDB2B73A28F00E1A718 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +79,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7CB780762B74B8A700DCA4D9 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				7CB780772B74B8B800DCA4D9 /* CityList.json */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
 		7CD67BCD2B73A28F00E1A718 = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +115,7 @@
 				7CD67BF62B73A37B00E1A718 /* Extension */,
 				7CD67BED2B73A31000E1A718 /* Base */,
 				7CD67C1E2B73ADE200E1A718 /* Const */,
+				7CB780762B74B8A700DCA4D9 /* JSON */,
 				7CD67BE22B73A29000E1A718 /* Assets.xcassets */,
 				7CD67BE42B73A29000E1A718 /* LaunchScreen.storyboard */,
 				7CD67BE72B73A29000E1A718 /* Info.plist */,
@@ -162,6 +175,7 @@
 			children = (
 				7CD67C052B73A4CB00E1A718 /* CurrentWeather.swift */,
 				7CD67C1C2B73AD7C00E1A718 /* ForecastWeather.swift */,
+				7CB780792B74B91800DCA4D9 /* City.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -278,6 +292,7 @@
 			files = (
 				7CD67BE62B73A29000E1A718 /* LaunchScreen.storyboard in Resources */,
 				7CD67C192B73AC4E00E1A718 /* .gitignore in Resources */,
+				7CB780782B74B8B800DCA4D9 /* CityList.json in Resources */,
 				7CD67BE32B73A29000E1A718 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -309,6 +324,7 @@
 				7CD67BF32B73A35A00E1A718 /* BaseTableViewCell.swift in Sources */,
 				7CD67BDC2B73A28F00E1A718 /* SceneDelegate.swift in Sources */,
 				7CD67C202B73ADF900E1A718 /* Const.swift in Sources */,
+				7CB7807A2B74B91800DCA4D9 /* City.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

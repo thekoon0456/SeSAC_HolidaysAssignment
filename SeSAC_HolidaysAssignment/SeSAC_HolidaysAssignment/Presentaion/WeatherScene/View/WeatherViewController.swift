@@ -25,23 +25,6 @@ final class WeatherViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        APIManager.shared.requestAPI(api: .cityForecast(id: 1846266), type: Forecast.self) { result in
-            switch result {
-            case .success(let success):
-                print(success)
-            case .failure(let failure):
-                print(failure)
-            }
-        }
-        
-        APIManager.shared.requestAPI(api: .locationForecast(lat: 37.654165, lon: 127.049696), type: Forecast.self) { result in
-            switch result {
-            case .success(let success):
-                print(success)
-            case .failure(let failure):
-                print(failure)
-            }
-        }
     }
     
     override func configureHierarchy() {
