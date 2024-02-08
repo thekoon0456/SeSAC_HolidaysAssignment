@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7CB780732B74A0D500DCA4D9 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB780722B74A0D500DCA4D9 /* Router.swift */; };
+		7CB780752B74B40900DCA4D9 /* WeatherError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB780742B74B40900DCA4D9 /* WeatherError.swift */; };
 		7CD67BDA2B73A28F00E1A718 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD67BD92B73A28F00E1A718 /* AppDelegate.swift */; };
 		7CD67BDC2B73A28F00E1A718 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD67BDB2B73A28F00E1A718 /* SceneDelegate.swift */; };
 		7CD67BE32B73A29000E1A718 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD67BE22B73A29000E1A718 /* Assets.xcassets */; };
@@ -33,6 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7CB780722B74A0D500DCA4D9 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		7CB780742B74B40900DCA4D9 /* WeatherError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherError.swift; sourceTree = "<group>"; };
 		7CD67BD62B73A28F00E1A718 /* SeSAC_HolidaysAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeSAC_HolidaysAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD67BD92B73A28F00E1A718 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CD67BDB2B73A28F00E1A718 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +133,8 @@
 			isa = PBXGroup;
 			children = (
 				7CD67C012B73A40300E1A718 /* APIManager.swift */,
+				7CB780722B74A0D500DCA4D9 /* Router.swift */,
+				7CB780742B74B40900DCA4D9 /* WeatherError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -289,6 +295,7 @@
 				7CD67C0C2B73A56200E1A718 /* ViewModelProtocol.swift in Sources */,
 				7CD67C0E2B73A59800E1A718 /* AppCoordinator.swift in Sources */,
 				7CD67BF52B73A36D00E1A718 /* BaseCollectionViewCell.swift in Sources */,
+				7CB780732B74A0D500DCA4D9 /* Router.swift in Sources */,
 				7CD67C022B73A40300E1A718 /* APIManager.swift in Sources */,
 				7CD67BEF2B73A33400E1A718 /* BaseViewController.swift in Sources */,
 				7CD67BF12B73A34800E1A718 /* BaseView.swift in Sources */,
@@ -297,6 +304,7 @@
 				7CD67C1B2B73AC6700E1A718 /* API_KEY.swift in Sources */,
 				7CD67C152B73A6CF00E1A718 /* WeatherViewModel.swift in Sources */,
 				7CD67C062B73A4CB00E1A718 /* CurrentWeather.swift in Sources */,
+				7CB780752B74B40900DCA4D9 /* WeatherError.swift in Sources */,
 				7CD67BDA2B73A28F00E1A718 /* AppDelegate.swift in Sources */,
 				7CD67BF32B73A35A00E1A718 /* BaseTableViewCell.swift in Sources */,
 				7CD67BDC2B73A28F00E1A718 /* SceneDelegate.swift in Sources */,
