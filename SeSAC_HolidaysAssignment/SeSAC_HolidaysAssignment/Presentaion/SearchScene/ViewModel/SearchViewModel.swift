@@ -12,7 +12,7 @@ final class SearchViewModel: ViewModel {
     // MARK: - Properties
     
     weak var coordinator: WeatherCoordinator?
-    var cityList: [City]?
+    var cityList: Observable<[City]> = Observable([])
     
     // MARK: - Lifecycles
     
@@ -29,7 +29,7 @@ final class SearchViewModel: ViewModel {
         decoder.parseData(type: [City].self, data: data) { result in
             switch result {
             case .success(let success):
-                self.cityList = success
+                cityList.onNext(success)
             case .failure(let failure):
                 print(failure)
             }

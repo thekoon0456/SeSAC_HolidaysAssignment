@@ -38,7 +38,7 @@ final class WeatherViewModel: ViewModel {
         APIManager.shared.requestAPI(api: .locationWeather(lat: location.lat, lon: location.lon), type: CurrentWeather.self) { result in
             switch result {
             case .success(let success):
-                self.currentWeather.value = success
+                self.currentWeather.onNext(success)
             case .failure(let failure):
                 print(failure)
             }
@@ -50,7 +50,7 @@ final class WeatherViewModel: ViewModel {
             switch result {
             case .success(let success):
                 print(success)
-                self.forecastWeather.value = success
+                self.forecastWeather.onNext(success)
             case .failure(let failure):
                 print(failure)
             }

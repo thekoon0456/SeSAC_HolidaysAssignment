@@ -39,6 +39,8 @@ final class CitySearchViewController: BaseViewController {
         $0.register(CityListCell.self, forCellReuseIdentifier: CityListCell.identifier)
     }
     
+    // MARK: - Lifecycles
+    
     init(viewModel: SearchViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -48,11 +50,11 @@ final class CitySearchViewController: BaseViewController {
         super.viewDidLoad()
         
         viewModel.parseJSON()
-        cityList = viewModel.cityList ?? []
+        bind()
     }
     
     // MARK: - Helpers
-    
+
     override func configureHierarchy() {
         view.addSubviews(titleLabel, searchBar, tableView)
     }
@@ -82,14 +84,25 @@ final class CitySearchViewController: BaseViewController {
     
 }
 
+// MARK: - Bind
+
+extension CitySearchViewController {
+
+    func bind() {
+        viewModel.cityList.bind { [weak self] city in
+            guard let self else { return }
+            cityList = city
+        }
+    }
+}
+
 // MARK: - SearchBar
 
 extension CitySearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard let inputText = searchBar.text?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines),
-              let list = viewModel.cityList
-        else { return }
+        guard let inputText = searchBar.text?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) else { return }
+        let list = viewModel.cityList.currentValue
         
         switch inputText.isEmpty {
         case true:
@@ -119,6 +132,10 @@ extension CitySearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let locationManater = LocationManager.shared
+        let coord = cityList[indexPath.row].coord
+        locationManater.lat = coord.lat
+        locationManater.lon = coord.lon
         
         viewModel.presentToastView(cityName: cityList[indexPath.row].name)
     }

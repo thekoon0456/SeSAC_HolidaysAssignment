@@ -120,7 +120,7 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         switch collectionView {
         case weatherView.threeHourCollectionView:
-            return viewModel.forecastWeather.value.list?.count ?? 0
+            return viewModel.forecastWeather.currentValue.list?.count ?? 0
         default:
             return 0
         }
@@ -134,10 +134,7 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
                 return UICollectionViewCell()
             }
             
-            viewModel.forecastWeather.bind { forecast in
-                cell.configureCell(data: forecast.list?[indexPath.item])
-            }
-            
+            cell.configureCell(data: viewModel.forecastWeather.currentValue.list?[indexPath.item])
             return cell
         default:
             return UICollectionViewCell()

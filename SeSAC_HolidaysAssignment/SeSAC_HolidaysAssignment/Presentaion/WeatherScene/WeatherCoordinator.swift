@@ -52,6 +52,7 @@ final class WeatherCoordinator: Coordinator {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             guard let self else { return }
             dismiss()
+            pop()
         }
     }
     

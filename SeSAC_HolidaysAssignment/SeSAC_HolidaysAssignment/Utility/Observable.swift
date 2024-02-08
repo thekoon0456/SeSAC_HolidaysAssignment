@@ -11,12 +11,16 @@ final class Observable<T> {
     
     typealias Listener = (T) -> Void
     
-    var listener: Listener?
+    private var listener: Listener?
     
-    var value: T {
+    private var value: T {
         didSet {
             listener?(value)
         }
+    }
+    
+    var currentValue: T {
+        value
     }
     
     init(_ value: T) {
@@ -26,6 +30,10 @@ final class Observable<T> {
     func bind(listener: Listener?) {
         self.listener = listener
         listener?(value)
+    }
+    
+    func onNext(_ value: T) {
+        self.value = value
     }
 }
 
