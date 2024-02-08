@@ -44,6 +44,7 @@ final class WeatherViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         viewModel.request()
+        viewModel.requestForecast()
     }
     
     // MARK: - Selectors
@@ -85,6 +86,13 @@ extension WeatherViewController {
                 weatherView.lowTempLabel.text = "최저: " +  String(format: "%.1f", (weather.main?.tempMin ?? 0) - 273.15) + "°"
             }
         }
+        
+        viewModel.forecastWeather.bind { forecast in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                weatherView.threeHourCollectionView.reloadData()
+            }
+        }
     }
 }
 
@@ -110,12 +118,30 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return 0
+        switch collectionView {
+        case weatherView.threeHourCollectionView:
+            return viewModel.forecastWeather.value.list?.count ?? 0
+        default:
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        return UICollectionViewCell()
+        switch collectionView {
+        case weatherView.threeHourCollectionView:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThreeHourCell.identifier, for: indexPath) as? ThreeHourCell else {
+                return UICollectionViewCell()
+            }
+            
+            viewModel.forecastWeather.bind { forecast in
+                cell.configureCell(data: forecast.list?[indexPath.item])
+            }
+            
+            return cell
+        default:
+            return UICollectionViewCell()
+        }
     }
     
 }

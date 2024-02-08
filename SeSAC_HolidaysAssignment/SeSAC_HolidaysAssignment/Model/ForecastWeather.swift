@@ -9,8 +9,10 @@ import Foundation
 
 // MARK: - Forecast
 struct Forecast: Decodable {
-    let list: [List]
-    let city: ForecastCity
+    let list: [List]?
+    let city: ForecastCity?
+    
+    static let defaultModel = Forecast(list: nil, city: nil)
 }
 
 // MARK: - City
@@ -31,7 +33,7 @@ struct ForecastCoord: Decodable {
 struct List: Decodable {
     let dt: Int
     let main: MainClass
-    let weather: [Weather]
+    let weather: [ForecastWeather]
     let wind: Wind
     let visibility: Int         //가시성
     let pop: Double           //강수확률

@@ -14,6 +14,7 @@ final class WeatherViewModel: ViewModel {
     weak var coordinator: WeatherCoordinator?
     let location = LocationManager.shared
     var currentWeather: Observable<CurrentWeather> = Observable(CurrentWeather.defaultModel)
+    var forecastWeather: Observable<Forecast> = Observable(Forecast.defaultModel)
     
     // MARK: - Lifecycles
     
@@ -42,6 +43,19 @@ final class WeatherViewModel: ViewModel {
                 print(failure)
             }
         }
+    }
+    
+    func requestForecast() {
+        APIManager.shared.requestAPI(api: .locationForecast(lat: location.lat, lon: location.lon), type: Forecast.self) { result in
+            switch result {
+            case .success(let success):
+                print(success)
+                self.forecastWeather.value = success
+            case .failure(let failure):
+                print(failure)
+            }
+        }
+        
     }
     
 }

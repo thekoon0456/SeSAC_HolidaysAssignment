@@ -13,11 +13,6 @@ final class ToastViewController: BaseViewController {
     
     let cityName: String
     
-    init(cityName: String) {
-        self.cityName = cityName
-        super.init(nibName: nil, bundle: nil)
-    }
-    
     private let ment = OWPaddingLabel().then {
         $0.font = .systemFont(ofSize: 14)
         $0.textColor = .white
@@ -27,6 +22,13 @@ final class ToastViewController: BaseViewController {
         $0.layer.borderWidth = 1
         $0.layer.cornerRadius = 12
         $0.clipsToBounds = true
+    }
+    
+    // MARK: - Helpers
+    
+    init(cityName: String) {
+        self.cityName = cityName
+        super.init(nibName: nil, bundle: nil)
     }
     
     // MARK: - Helpers

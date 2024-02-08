@@ -36,14 +36,21 @@ final class WeatherView: BaseView {
     
     let threeHourCollectionView = {
         let layout = UICollectionViewFlowLayout()
-        
+        layout.itemSize = .init(width: 70, height: 160)
+        layout.sectionInset = .init(top: 0, left: 20, bottom: 0, right: 0)
+        layout.scrollDirection = .horizontal
         
         let cv = UICollectionView(frame: .zero,
                                   collectionViewLayout: layout)
+        cv.register(ThreeHourCell.self,
+                    forCellWithReuseIdentifier: ThreeHourCell.identifier)
+        cv.backgroundColor = .clear
         return cv
     }()
     
-    let fiveDayTableView = UITableView()
+    let fiveDayTableView = UITableView().then {
+        $0.backgroundColor = .clear
+    }
     let headerView = UIView()
     let detailWeatherCollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -51,6 +58,7 @@ final class WeatherView: BaseView {
         
         let cv = UICollectionView(frame: .zero,
                                   collectionViewLayout: layout)
+        cv.backgroundColor = .clear
         return cv
     }()
     
@@ -123,7 +131,7 @@ final class WeatherView: BaseView {
         
         threeHourCollectionView.snp.makeConstraints { make in
             make.top.equalTo(highTempLabel.snp.bottom).offset(40)
-            make.horizontalEdges.equalToSuperview().inset(20)
+            make.horizontalEdges.equalToSuperview()
             make.centerX.equalToSuperview()
             make.height.equalTo(160)
         }
