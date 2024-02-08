@@ -20,6 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
         
         let nav = UINavigationController()
+        nav.navigationBar.tintColor = .white
         window?.rootViewController = nav
 
         appCoordinator = AppCoordinator(navigationController: nav)

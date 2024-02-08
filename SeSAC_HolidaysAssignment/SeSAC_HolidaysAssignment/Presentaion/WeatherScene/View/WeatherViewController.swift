@@ -57,6 +57,7 @@ final class WeatherViewController: BaseViewController {
         weatherView.fiveDayTableView.delegate = self
         weatherView.fiveDayTableView.dataSource = self
         
+        navigationItem.backButtonDisplayMode = .minimal
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.bullet"),
                                                             style: .plain,
                                                             target: self,

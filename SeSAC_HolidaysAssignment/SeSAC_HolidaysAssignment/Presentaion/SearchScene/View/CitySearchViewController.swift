@@ -19,12 +19,13 @@ final class CitySearchViewController: BaseViewController {
     
     private let searchBar = UISearchBar().then {
         $0.placeholder = "Search for a city"
-        $0.backgroundColor = .clear
-        $0.searchTextField.backgroundColor = .secondarySystemBackground
+        $0.barTintColor = .clear
+        $0.searchTextField.backgroundColor = .secondarySystemFill
         $0.tintColor = .white
     }
     
     private lazy var tableView = UITableView().then {
+        $0.backgroundColor = .clear
         $0.delegate = self
         $0.dataSource = self
         $0.rowHeight = UITableView.automaticDimension
@@ -58,19 +59,19 @@ final class CitySearchViewController: BaseViewController {
         
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(4)
-            make.horizontalEdges.equalToSuperview().offset(8)
+            make.horizontalEdges.equalToSuperview()
             make.height.equalTo(50)
         }
         
         tableView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom)
-            make.horizontalEdges.equalToSuperview().offset(8)
+            make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
         }
     }
     
     override func configureView() {
-        
+        view.backgroundColor = .black
     }
     
 }
