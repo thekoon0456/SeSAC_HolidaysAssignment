@@ -73,6 +73,16 @@ extension WeatherViewController {
             guard let self else { return }
             weatherView.weatherStateLabel.text = state
         }
+        
+        viewModel.highTemp.bind { [weak self] high in
+            guard let self else { return }
+            weatherView.highTempLabel.text = high
+        }
+        
+        viewModel.lowTemp.bind { [weak self] low in
+            guard let self else { return }
+            weatherView.lowTempLabel.text = low
+        }
     }
 }
 

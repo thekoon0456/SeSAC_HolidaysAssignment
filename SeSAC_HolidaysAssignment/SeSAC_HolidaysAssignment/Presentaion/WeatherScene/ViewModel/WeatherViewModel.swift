@@ -15,8 +15,8 @@ final class WeatherViewModel: ViewModel {
     let city = Observable("Jeju City")
     let temp = Observable("5.9°")
     let weatherState = Observable("Broken Clouds")
-    let highTemp = Observable("7.0°")
-    let lowTemp = Observable("-4.2°")
+    let highTemp = Observable("최고: 7.0°")
+    let lowTemp = Observable("최저: -4.2°")
     
     
     // MARK: - Lifecycles

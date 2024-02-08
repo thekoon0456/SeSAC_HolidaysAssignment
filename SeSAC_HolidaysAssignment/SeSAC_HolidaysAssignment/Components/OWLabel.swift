@@ -10,11 +10,11 @@ import UIKit
 final class OWLabel: UILabel {
     
     init(size: CGFloat,
-         isBold: Bool = false,
+         weight: UIFont.Weight = .regular,
          color: UIColor = .white,
          alignment: NSTextAlignment = .center) {
         super.init(frame: .zero)
-        font = isBold == true ? .boldSystemFont(ofSize: size) : .systemFont(ofSize: size)
+        font = .systemFont(ofSize: size, weight: weight)
         textColor = color
         textAlignment = alignment
     }

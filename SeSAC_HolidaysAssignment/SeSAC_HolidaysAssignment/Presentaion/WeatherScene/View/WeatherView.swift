@@ -29,7 +29,10 @@ final class WeatherView: BaseView {
     let weatherStateLabel = OWFont.regular.label
     let highTempLabel = OWFont.small.label
     let lowTempLabel = OWFont.small.label
-    private let divider = UIView()
+    
+    private let divider = UIView().then {
+        $0.backgroundColor = .white
+    }
     
     let threeHourCollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -39,8 +42,8 @@ final class WeatherView: BaseView {
                                   collectionViewLayout: layout)
         return cv
     }()
-    let fiveDayTableView = UITableView()
     
+    let fiveDayTableView = UITableView()
     let headerView = UIView()
     let detailWeatherCollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -79,7 +82,7 @@ final class WeatherView: BaseView {
         }
         
         cityLabel.snp.makeConstraints { make in
-            make.top .equalToSuperview().offset(24)
+            make.top .equalToSuperview()
             make.horizontalEdges.equalToSuperview().inset(40)
             make.height.equalTo(40)
             make.centerX.equalToSuperview()
@@ -101,42 +104,40 @@ final class WeatherView: BaseView {
         
         highTempLabel.snp.makeConstraints { make in
             make.top.equalTo(weatherStateLabel.snp.bottom)
-            make.width.equalToSuperview().multipliedBy(0.3)
+            make.trailing.equalTo(divider.snp.leading).offset(-12)
             make.height.equalTo(30)
-            make.trailing.equalTo(divider.snp.leading).offset(-4)
         }
         
         divider.snp.makeConstraints { make in
             make.top.equalTo(highTempLabel.snp.top)
             make.width.equalTo(1)
-            make.height.equalTo(highTempLabel.snp.height)
+            make.height.equalTo(highTempLabel.snp.height).multipliedBy(0.9)
             make.centerX.equalToSuperview()
         }
         
         lowTempLabel.snp.makeConstraints { make in
             make.top.equalTo(highTempLabel.snp.top)
-            make.width.equalToSuperview().multipliedBy(0.3)
             make.height.equalTo(highTempLabel.snp.height)
-            make.leading.equalTo(divider.snp.trailing).offset(4)
+            make.leading.equalTo(divider.snp.trailing).offset(12)
         }
         
         threeHourCollectionView.snp.makeConstraints { make in
             make.top.equalTo(highTempLabel.snp.bottom).offset(40)
-            make.horizontalEdges.equalToSuperview().inset(40)
+            make.horizontalEdges.equalToSuperview().inset(20)
             make.centerX.equalToSuperview()
             make.height.equalTo(160)
         }
         
         fiveDayTableView.snp.makeConstraints { make in
             make.top.equalTo(threeHourCollectionView.snp.bottom).offset(40)
-            make.horizontalEdges.equalToSuperview().inset(40)
+            make.horizontalEdges.equalToSuperview().inset(20)
             make.centerX.equalToSuperview()
             make.height.equalTo(200)
         }
         
         detailWeatherCollectionView.snp.makeConstraints { make in
             make.top.equalTo(fiveDayTableView.snp.bottom).offset(40)
-            make.horizontalEdges.equalToSuperview().inset(40)
+            make.horizontalEdges.equalToSuperview().inset(20)
             make.centerX.equalToSuperview()
             make.height.equalTo(200)
             make.bottom.equalToSuperview()

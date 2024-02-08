@@ -16,13 +16,13 @@ enum OWFont {
     var label: OWLabel {
         switch self {
         case .mainTemp:
-            OWLabel(size: 80)
+            OWLabel(size: 80, weight: .thin)
         case .large(let isBold):
-            OWLabel(size: 30, isBold: isBold)
+            OWLabel(size: 30)
         case .regular:
-            OWLabel(size: 20)
+            OWLabel(size: 25)
         case .small:
-            OWLabel(size: 15)
+            OWLabel(size: 20)
         }
     }
 }
