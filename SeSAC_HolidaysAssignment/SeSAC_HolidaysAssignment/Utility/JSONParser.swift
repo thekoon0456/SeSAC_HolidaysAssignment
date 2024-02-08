@@ -14,7 +14,6 @@ final class JSONParser {
                                  completion: (Result<T, WeatherError>) -> Void) {
         do {
             let result = try JSONDecoder().decode(type, from: data)
-            print(result)
             completion(.success(result))
         } catch {
             completion(.failure(.parseError))

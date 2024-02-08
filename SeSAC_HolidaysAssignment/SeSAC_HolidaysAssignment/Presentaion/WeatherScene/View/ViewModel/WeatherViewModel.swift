@@ -12,12 +12,8 @@ final class WeatherViewModel: ViewModel {
     // MARK: - Properties
     
     weak var coordinator: WeatherCoordinator?
-    let city = Observable("Jeju City")
-    let temp = Observable("5.9°")
-    let weatherState = Observable("Broken Clouds")
-    let highTemp = Observable("최고: 7.0°")
-    let lowTemp = Observable("최저: -4.2°")
-    
+    let location = LocationManager.shared
+    var currentWeather: Observable<CurrentWeather> = Observable(CurrentWeather.defaultModel)
     
     // MARK: - Lifecycles
     
@@ -37,6 +33,15 @@ final class WeatherViewModel: ViewModel {
 //                print(failure)
 //            }
 //        }
+        
+        APIManager.shared.requestAPI(api: .locationWeather(lat: location.lat, lon: location.lon), type: CurrentWeather.self) { result in
+            switch result {
+            case .success(let success):
+                self.currentWeather.value = success
+            case .failure(let failure):
+                print(failure)
+            }
+        }
     }
     
 }

@@ -9,16 +9,18 @@ import Foundation
 
 // MARK: - CurrentWeather
 struct CurrentWeather: Decodable {
-    let coord: Coord //위경도
-    let weather: [Weather]
-    let main: Main
-    let visibility: Int
-    let wind: Wind
-    let clouds: Clouds
-    let dt: Int
-    let sys: Sys  //해뜨고지는시간
-    let id: Int
-    let name: String //도시 이름
+    let coord: Coord? //위경도
+    let weather: [Weather]?
+    let main: Main?
+    let visibility: Int?
+    let wind: Wind?
+    let clouds: Clouds?
+    let dt: Int?
+    let sys: Sys?  //해뜨고지는시간
+    let id: Int?
+    let name: String? //도시 이름
+    
+    static let defaultModel = CurrentWeather(coord: nil, weather: nil, main: nil, visibility: nil, wind: nil, clouds: nil, dt: nil, sys: nil, id: nil, name: nil)
 }
 
 // MARK: - Clouds

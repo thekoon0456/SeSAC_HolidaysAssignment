@@ -37,8 +37,13 @@ final class WeatherViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.request()
         bindUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.request()
     }
     
     // MARK: - Selectors
@@ -70,30 +75,15 @@ final class WeatherViewController: BaseViewController {
 extension WeatherViewController {
     
     private func bindUI() {
-        
-        viewModel.city.bind { [weak self] city in
-            guard let self else { return }
-            weatherView.cityLabel.text = city
-        }
-        
-        viewModel.temp.bind { [weak self] temp in
-            guard let self else { return }
-            weatherView.tempLabel.text = temp
-        }
-        
-        viewModel.weatherState.bind { [weak self] state in
-            guard let self else { return }
-            weatherView.weatherStateLabel.text = state
-        }
-        
-        viewModel.highTemp.bind { [weak self] high in
-            guard let self else { return }
-            weatherView.highTempLabel.text = high
-        }
-        
-        viewModel.lowTemp.bind { [weak self] low in
-            guard let self else { return }
-            weatherView.lowTempLabel.text = low
+        viewModel.currentWeather.bind { weather in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                weatherView.cityLabel.text = weather.name ?? ""
+                weatherView.tempLabel.text = String(format: "%.1f", (weather.main?.temp ?? 0) - 273.15)
+                weatherView.weatherStateLabel.text = weather.weather?.first?.description ?? ""
+                weatherView.highTempLabel.text = String(format: "%.1f", (weather.main?.tempMax ?? 0) - 273.15)
+                weatherView.lowTempLabel.text = String(format: "%.1f", (weather.main?.tempMin ?? 0) - 273.15)
+            }
         }
     }
 }
