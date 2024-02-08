@@ -9,7 +9,7 @@ import UIKit
 
 enum OWFont {
     case mainTemp
-    case large(isBold: Bool)
+    case large(weight: UIFont.Weight, alignment: NSTextAlignment)
     case regular
     case small
     
@@ -17,8 +17,8 @@ enum OWFont {
         switch self {
         case .mainTemp:
             OWLabel(size: 80, weight: .thin)
-        case .large(let isBold):
-            OWLabel(size: 30)
+        case .large(let weight, let alignment):
+            OWLabel(size: 30, weight: weight, alignment: alignment)
         case .regular:
             OWLabel(size: 25)
         case .small:
