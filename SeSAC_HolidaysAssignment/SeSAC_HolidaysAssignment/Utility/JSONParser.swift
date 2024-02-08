@@ -14,16 +14,25 @@ final class JSONParser {
                                  completion: (Result<T, WeatherError>) -> Void) {
         do {
             let result = try JSONDecoder().decode(type, from: data)
+            print(result)
             completion(.success(result))
         } catch {
             completion(.failure(.parseError))
         }
     }
     
-    func readJSON(name: String) -> Data? {
-        guard let filePath = Bundle.main.path(forResource: name, ofType: "json") else { return nil }
+    func readJSON(name: String) -> Data {
+        guard let filePath = Bundle.main.path(forResource: name, ofType: "json") else {
+            print("JSON 경로 확인하기")
+            return Data()
+        }
+        
         let fileUrl = URL(fileURLWithPath: filePath)
-        let data = try? Data(contentsOf: fileUrl)
+        guard let data = try? Data(contentsOf: fileUrl) else { 
+            print("데이터 변환 실패")
+            return Data()
+        }
+        
         return data
     }
 }

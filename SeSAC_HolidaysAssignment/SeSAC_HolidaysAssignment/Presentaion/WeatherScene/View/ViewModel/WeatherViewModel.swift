@@ -29,14 +29,14 @@ final class WeatherViewModel: ViewModel {
     
     func request() {
         
-        APIManager.shared.requestAPI(api: .cityForecast(id: 1846266), type: Forecast.self) { result in
-            switch result {
-            case .success(let success):
-                print(success)
-            case .failure(let failure):
-                print(failure)
-            }
-        }
+//        APIManager.shared.requestAPI(api: .cityForecast(id: 1846266), type: Forecast.self) { result in
+//            switch result {
+//            case .success(let success):
+//                print(success)
+//            case .failure(let failure):
+//                print(failure)
+//            }
+//        }
     }
     
 }

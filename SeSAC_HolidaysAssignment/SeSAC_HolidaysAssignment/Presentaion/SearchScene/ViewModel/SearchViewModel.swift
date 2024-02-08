@@ -22,14 +22,14 @@ final class SearchViewModel: ViewModel {
     
     // MARK: - Helpers
     
-    func parseJSON(){
+    func parseJSON() {
         let decoder = JSONParser()
-        guard let data = decoder.readJSON(name: Const.JSON.cityList.fileName) else { return }
-        decoder.parseData(type: CityList.self, data: data) { result in
+        let data = decoder.readJSON(name: Const.JSON.cityList.fileName)
+        
+        decoder.parseData(type: [City].self, data: data) { result in
             switch result {
             case .success(let success):
-                print(success.cityResult)
-                self.cityList = success.cityResult
+                self.cityList = success
             case .failure(let failure):
                 print(failure)
             }

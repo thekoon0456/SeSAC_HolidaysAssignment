@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct CityList: Decodable {
-    let cityResult: [City]
-}
-
 struct City: Decodable {
     let id: Int
     let name: String

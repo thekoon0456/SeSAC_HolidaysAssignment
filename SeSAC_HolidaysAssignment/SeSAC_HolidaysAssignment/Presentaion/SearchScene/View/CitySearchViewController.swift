@@ -12,16 +12,23 @@ final class CitySearchViewController: BaseViewController {
     // MARK: - Properties
     
     let viewModel: SearchViewModel
+    var cityList: [City] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     private let titleLabel = OWFont.large(weight: .bold, alignment: .left).label.then {
         $0.text = Const.Title.city.text
     }
     
-    private let searchBar = UISearchBar().then {
+    private lazy var searchBar = UISearchBar().then {
         $0.placeholder = "Search for a city"
         $0.barTintColor = .clear
         $0.searchTextField.backgroundColor = .secondarySystemFill
+        $0.searchTextField.textColor = .white
         $0.tintColor = .white
+        $0.delegate = self
     }
     
     private lazy var tableView = UITableView().then {
@@ -29,8 +36,7 @@ final class CitySearchViewController: BaseViewController {
         $0.delegate = self
         $0.dataSource = self
         $0.rowHeight = UITableView.automaticDimension
-//        $0.register(<#T##nib: UINib?##UINib?#>, forCellReuseIdentifier: <#T##String#>)
-        
+        $0.register(CityListCell.self, forCellReuseIdentifier: CityListCell.identifier)
     }
     
     init(viewModel: SearchViewModel) {
@@ -42,7 +48,7 @@ final class CitySearchViewController: BaseViewController {
         super.viewDidLoad()
         
         viewModel.parseJSON()
-//        print(viewModel.cityList)
+        cityList = viewModel.cityList ?? []
     }
     
     // MARK: - Helpers
@@ -81,9 +87,17 @@ final class CitySearchViewController: BaseViewController {
 extension CitySearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard let inputText = searchBar.text else { return }
         
+        switch inputText.isEmpty {
+        case true:
+            cityList = viewModel.cityList ?? []
+        case false:
+            let list = cityList
+            let searchList = list.filter { $0.name.contains(inputText) }
+            cityList = searchList
+        }
     }
-    
 }
 
 // MARK: - TableView
@@ -91,14 +105,15 @@ extension CitySearchViewController: UISearchBarDelegate {
 extension CitySearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 0
+        cityList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CityListCell.identifier, for: indexPath) as? CityListCell else {
+            return UITableViewCell()
+        }
         
-        return UITableViewCell()
+        cell.configureCell(data: cityList[indexPath.row])
+        return cell
     }
-    
-    
 }

@@ -64,7 +64,7 @@ enum Const {
         var fileName: String {
             switch self {
             case .cityList:
-                "CityList.json"
+                "CityList"
             }
         }
     }
