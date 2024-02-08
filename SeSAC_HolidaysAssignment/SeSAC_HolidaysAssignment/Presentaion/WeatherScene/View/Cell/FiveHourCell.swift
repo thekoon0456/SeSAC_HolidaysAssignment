@@ -17,11 +17,11 @@ final class FiveHourCell: BaseTableViewCell {
         $0.textColor = .white
         $0.textAlignment = .left
     }
-
+    
     private var weatherIcon = UIImageView().then {
         $0.contentMode = .scaleAspectFill
     }
-
+    
     private var lowTempLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 25)
         $0.textColor = .systemGray
@@ -36,18 +36,17 @@ final class FiveHourCell: BaseTableViewCell {
     
     func configureCell(data: List?) {
         guard let data else { return }
-        let formattedDay = DateFormatterManager.shared.formattedDate(input: data.dtTxt,
-                                                                     inputFormat: .dtTxt,
-                                                                      outputFormat: .day)
-//        dayLabel.text = formattedHour
-//        tempLabel.text = String(format: "%.1f", data.main.temp - 273.15) + "°"
+        let dateManager = DateFormatterManager.shared
+        let formattedDay = dateManager.formattedDate(input: data.dtTxt,
+                                                     inputFormat: .dtTxt,
+                                                     outputFormat: .day)
         guard let icon = data.weather.first?.icon else { return }
         let url = URL(string: Router.icon(icon: icon).endPoint)
-
-        dayLabel.text = formattedDay
+        
+        dayLabel.text = formattedDay == dateManager.todayString() ? Const.Time.today.value : formattedDay
         weatherIcon.kf.setImage(with: url)
-        lowTempLabel.text = "최저 " + Const.Temp.normal(temp: data.main.tempMin).value
-        highTempLabel.text = "최고 " + Const.Temp.normal(temp: data.main.tempMax).value
+        lowTempLabel.text =  Const.Temp.low.value + Const.Temp.normal(temp: data.main.tempMin).value
+        highTempLabel.text = Const.Temp.high.value + Const.Temp.normal(temp: data.main.tempMax).value
     }
     
     override func configureHierarchy() {
@@ -60,7 +59,7 @@ final class FiveHourCell: BaseTableViewCell {
             make.leading.equalToSuperview().offset(8)
             make.width.equalTo(60)
         }
-
+        
         weatherIcon.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.size.equalTo(30)
@@ -72,14 +71,13 @@ final class FiveHourCell: BaseTableViewCell {
         lowTempLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(weatherIcon.snp.trailing).offset(12)
-            make.width.equalTo(140)
+            make.width.equalTo(highTempLabel.snp.width)
         }
         
         highTempLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(lowTempLabel.snp.trailing).offset(4)
             make.trailing.equalToSuperview().offset(-8)
-            make.width.equalTo(lowTempLabel.snp.width)
         }
     }
     

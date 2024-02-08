@@ -51,6 +51,7 @@ final class WeatherView: BaseView {
     let fiveDayTableView = UITableView().then {
         $0.register(FiveHourCell.self, forCellReuseIdentifier: FiveHourCell.identifier)
         $0.backgroundColor = .clear
+        $0.separatorStyle = .none
         $0.rowHeight = 46
         $0.isUserInteractionEnabled = false
     }

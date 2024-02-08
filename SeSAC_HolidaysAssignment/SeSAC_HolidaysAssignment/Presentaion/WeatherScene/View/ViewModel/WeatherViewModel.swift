@@ -26,15 +26,6 @@ final class WeatherViewModel: ViewModel {
     
     func request() {
         
-//        APIManager.shared.requestAPI(api: .cityForecast(id: 1846266), type: Forecast.self) { result in
-//            switch result {
-//            case .success(let success):
-//                print(success)
-//            case .failure(let failure):
-//                print(failure)
-//            }
-//        }
-        
         APIManager.shared.requestAPI(api: .locationWeather(lat: location.lat, lon: location.lon), type: CurrentWeather.self) { result in
             switch result {
             case .success(let success):
@@ -49,7 +40,6 @@ final class WeatherViewModel: ViewModel {
         APIManager.shared.requestAPI(api: .locationForecast(lat: location.lat, lon: location.lon), type: Forecast.self) { result in
             switch result {
             case .success(let success):
-                print(success)
                 self.forecastWeather.onNext(success)
             case .failure(let failure):
                 print(failure)

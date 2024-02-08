@@ -36,6 +36,17 @@ final class WeatherCoordinator: Coordinator {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    func presentLoadView() {
+        let vc = LoadViewController()
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        navigationController?.present(vc, animated: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            guard let self else { return }
+            dismiss()
+        }
+    }
+    
     func pushToSearchVC() {
         let vm = SearchViewModel(coordinator: self)
         let vc = CitySearchViewController(viewModel: vm)

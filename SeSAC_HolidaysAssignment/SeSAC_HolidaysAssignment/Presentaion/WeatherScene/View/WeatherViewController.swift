@@ -37,6 +37,7 @@ final class WeatherViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.coordinator?.presentLoadView()
         bindUI()
     }
     
@@ -85,8 +86,8 @@ extension WeatherViewController {
                 weatherView.cityLabel.text = weather.name
                 weatherView.tempLabel.text = Const.Temp.demical(temp: main.temp).value
                 weatherView.weatherStateLabel.text = weather.weather?.first?.description
-                weatherView.highTempLabel.text = "최고: " + Const.Temp.demical(temp: main.tempMax).value
-                weatherView.lowTempLabel.text = "최저: " +  Const.Temp.demical(temp: main.tempMin).value
+                weatherView.highTempLabel.text = Const.Temp.high.value + Const.Temp.demical(temp: main.tempMax).value
+                weatherView.lowTempLabel.text = Const.Temp.low.value +  Const.Temp.demical(temp: main.tempMin).value
             }
         }
         
@@ -109,12 +110,19 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: FiveHourCell.identifier, for: indexPath) as? FiveHourCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FiveHourCell.identifier, for: indexPath) as? FiveHourCell,
+              var list = viewModel.forecastWeather.currentValue.list
+        else {
             return UITableViewCell()
         }
+        let dateManager = DateFormatterManager.shared
         
+        list = list.filter { weather in
+            let day = dateManager.formattedDate(input: weather.dtTxt, inputFormat: .dtTxt, outputFormat: .hour)
+            return day == Const.Time.twelve.value ? true : false
+        }
         
-        cell.configureCell(data: viewModel.forecastWeather.currentValue.list?[indexPath.item])
+        cell.configureCell(data: list[indexPath.item])
         return cell
     }
     

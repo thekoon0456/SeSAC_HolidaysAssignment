@@ -72,6 +72,8 @@ enum Const {
     enum Temp {
         case normal(temp: Double)
         case demical(temp: Double)
+        case low
+        case high
         
         var value: String {
             switch self {
@@ -79,6 +81,24 @@ enum Const {
                 String(format: "%.0f", temp - 273.15) + "°"
             case .demical(let temp):
                 String(format: "%.1f", temp - 273.15) + "°"
+            case .low:
+                "최저 "
+            case .high:
+                "최고 "
+            }
+        }
+    }
+    
+    enum Time {
+        case twelve
+        case today
+        
+        var value: String {
+            switch self {
+            case .twelve:
+                "12시"
+            case .today:
+                "오늘"
             }
         }
     }
