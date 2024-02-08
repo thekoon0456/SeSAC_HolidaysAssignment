@@ -24,11 +24,11 @@ final class WeatherView: BaseView {
         $0.alpha = 0.4
     }
     
-    let cityLabel = UILabel()
-    let tempLabel = UILabel()
-    let weatherStateLabel = UILabel()
-    let highTempLabel = UILabel()
-    let lowTempLabel = UILabel()
+    let cityLabel = OWFont.large(isBold: false).label
+    let tempLabel = OWFont.mainTemp.label
+    let weatherStateLabel = OWFont.regular.label
+    let highTempLabel = OWFont.small.label
+    let lowTempLabel = OWFont.small.label
     private let divider = UIView()
     
     let threeHourCollectionView = {
