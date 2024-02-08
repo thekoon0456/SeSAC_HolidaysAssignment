@@ -21,6 +21,7 @@
 		7CB780902B74E78000DCA4D9 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB7808F2B74E78000DCA4D9 /* JSONParser.swift */; };
 		7CB780922B74F45700DCA4D9 /* CityListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB780912B74F45700DCA4D9 /* CityListCell.swift */; };
 		7CB780962B74FD5400DCA4D9 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB780952B74FD5400DCA4D9 /* LocationManager.swift */; };
+		7CB780992B75237D00DCA4D9 /* ToastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB780982B75237D00DCA4D9 /* ToastViewController.swift */; };
 		7CD67BDA2B73A28F00E1A718 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD67BD92B73A28F00E1A718 /* AppDelegate.swift */; };
 		7CD67BDC2B73A28F00E1A718 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD67BDB2B73A28F00E1A718 /* SceneDelegate.swift */; };
 		7CD67BE32B73A29000E1A718 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD67BE22B73A29000E1A718 /* Assets.xcassets */; };
@@ -61,6 +62,7 @@
 		7CB7808F2B74E78000DCA4D9 /* JSONParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
 		7CB780912B74F45700DCA4D9 /* CityListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListCell.swift; sourceTree = "<group>"; };
 		7CB780952B74FD5400DCA4D9 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		7CB780982B75237D00DCA4D9 /* ToastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastViewController.swift; sourceTree = "<group>"; };
 		7CD67BD62B73A28F00E1A718 /* SeSAC_HolidaysAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeSAC_HolidaysAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD67BD92B73A28F00E1A718 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CD67BDB2B73A28F00E1A718 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -158,6 +160,14 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		7CB780972B75235E00DCA4D9 /* ToastView */ = {
+			isa = PBXGroup;
+			children = (
+				7CB780982B75237D00DCA4D9 /* ToastViewController.swift */,
+			);
+			path = ToastView;
+			sourceTree = "<group>";
+		};
 		7CD67BCD2B73A28F00E1A718 = {
 			isa = PBXGroup;
 			children = (
@@ -242,6 +252,7 @@
 				7CD67C0D2B73A59800E1A718 /* AppCoordinator.swift */,
 				7CD67C0F2B73A67A00E1A718 /* WeatherScene */,
 				7CB780882B74E3F900DCA4D9 /* SearchScene */,
+				7CB780972B75235E00DCA4D9 /* ToastView */,
 			);
 			path = Presentaion;
 			sourceTree = "<group>";
@@ -412,6 +423,7 @@
 				7CD67BDC2B73A28F00E1A718 /* SceneDelegate.swift in Sources */,
 				7CD67C202B73ADF900E1A718 /* Const.swift in Sources */,
 				7CB7807A2B74B91800DCA4D9 /* City.swift in Sources */,
+				7CB780992B75237D00DCA4D9 /* ToastViewController.swift in Sources */,
 				7CB780902B74E78000DCA4D9 /* JSONParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

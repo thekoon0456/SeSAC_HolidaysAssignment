@@ -42,6 +42,23 @@ final class WeatherCoordinator: Coordinator {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    func presentToastView() {
+        //toast뷰 띄우기
+        let vc = ToastViewController()
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        navigationController?.present(vc, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            guard let self else { return }
+            dismiss()
+        }
+    }
+    
+    func dismiss() {
+        navigationController?.dismiss(animated: true)
+    }
+    
     func pop() {
         navigationController?.popViewController(animated: true)
     }
