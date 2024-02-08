@@ -35,4 +35,14 @@ final class WeatherCoordinator: Coordinator {
         
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func pushToSearchVC() {
+        let vm = SearchViewModel(coordinator: self)
+        let vc = CitySearchViewController(viewModel: vm)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func pop() {
+        navigationController?.popViewController(animated: true)
+    }
 }

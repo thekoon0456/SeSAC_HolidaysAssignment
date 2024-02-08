@@ -21,7 +21,7 @@ final class WeatherViewModel: ViewModel {
     
     // MARK: - Lifecycles
     
-    init(coordinator: WeatherCoordinator? = nil) {
+    init(coordinator: WeatherCoordinator?) {
         self.coordinator = coordinator
     }
     
@@ -29,9 +29,14 @@ final class WeatherViewModel: ViewModel {
     
     func request() {
         
-//        APIManager.shared.requestAPI(api: <#T##Router#>, type: <#T##Decodable.Protocol#>) { <#Result<Decodable, WeatherError>#> in
-//            <#code#>
-//        }
+        APIManager.shared.requestAPI(api: .cityForecast(id: 1846266), type: Forecast.self) { result in
+            switch result {
+            case .success(let success):
+                print(success)
+            case .failure(let failure):
+                print(failure)
+            }
+        }
     }
     
 }

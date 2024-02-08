@@ -58,4 +58,14 @@ enum Const {
         }
     }
     
+    enum JSON {
+        case cityList
+        
+        var fileName: String {
+            switch self {
+            case .cityList:
+                "CityList.json"
+            }
+        }
+    }
 }

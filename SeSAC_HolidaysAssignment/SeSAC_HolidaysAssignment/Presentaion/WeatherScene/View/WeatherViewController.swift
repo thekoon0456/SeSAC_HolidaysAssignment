@@ -41,6 +41,12 @@ final class WeatherViewController: BaseViewController {
         bindUI()
     }
     
+    // MARK: - Selectors
+    
+    @objc func listButtonTapped() {
+        viewModel.coordinator?.pushToSearchVC()
+    }
+    
     // MARK: - Helpers
     
     override func configureView() {
@@ -50,6 +56,11 @@ final class WeatherViewController: BaseViewController {
         weatherView.threeHourCollectionView.dataSource = self
         weatherView.fiveDayTableView.delegate = self
         weatherView.fiveDayTableView.dataSource = self
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.bullet"),
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(listButtonTapped))
     }
 }
 
