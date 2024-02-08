@@ -24,7 +24,7 @@ final class DateFormatterManager {
     
     // MARK: - 최종적인 format결과
     
-    func formattedDate(input: String, inputFormat: DateStyle = .threeHourCell, outputFormat: DateStyle = .hour) -> String {
+    func formattedDate(input: String, inputFormat: DateStyle, outputFormat: DateStyle) -> String {
         let date = stringToDate(input, format: inputFormat)
         return dateToString(date, format: outputFormat)
     }

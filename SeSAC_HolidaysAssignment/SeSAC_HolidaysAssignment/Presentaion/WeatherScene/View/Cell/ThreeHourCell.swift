@@ -32,11 +32,13 @@ final class ThreeHourCell: BaseCollectionViewCell {
     
     func configureCell(data: List?) {
         guard let data else { return }
-        let formattedHour = DateFormatterManager.shared.formattedDate(input: data.dtTxt)
+        let formattedHour = DateFormatterManager.shared.formattedDate(input: data.dtTxt,
+                                                                      inputFormat: .threeHourCell,
+                                                                      outputFormat: .hour)
         timeLabel.text = formattedHour
         tempLabel.text = String(format: "%.1f", data.main.temp - 273.15) + "°"
         guard let icon = data.weather.first?.icon else { return }
-        let url = URL(string: "https://openweathermap.org/img/wn/\(icon)@2x.png")
+        let url = URL(string: Router.icon(icon: icon).endPoint)
         weatherIcon.kf.setImage(with: url)
     }
     
