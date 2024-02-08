@@ -78,12 +78,15 @@ extension WeatherViewController {
     private func bindUI() {
         viewModel.currentWeather.bind { weather in
             DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
+                guard let self,
+                      let main = weather.main
+                else { return }
+                
                 weatherView.cityLabel.text = weather.name
-                weatherView.tempLabel.text = String(format: "%.1f", (weather.main?.temp ?? 0) - 273.15)
+                weatherView.tempLabel.text = Const.Temp.demical(temp: main.temp).value
                 weatherView.weatherStateLabel.text = weather.weather?.first?.description
-                weatherView.highTempLabel.text = "최고: " + String(format: "%.1f", (weather.main?.tempMax ?? 0) - 273.15) + "°"
-                weatherView.lowTempLabel.text = "최저: " +  String(format: "%.1f", (weather.main?.tempMin ?? 0) - 273.15) + "°"
+                weatherView.highTempLabel.text = "최고: " + Const.Temp.demical(temp: main.tempMax).value
+                weatherView.lowTempLabel.text = "최저: " +  Const.Temp.demical(temp: main.tempMin).value
             }
         }
         
@@ -91,6 +94,7 @@ extension WeatherViewController {
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
                 weatherView.threeHourCollectionView.reloadData()
+                weatherView.fiveDayTableView.reloadData()
             }
         }
     }
@@ -101,13 +105,17 @@ extension WeatherViewController {
 extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 0
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FiveHourCell.identifier, for: indexPath) as? FiveHourCell else {
+            return UITableViewCell()
+        }
         
-        return UITableViewCell()
+        
+        cell.configureCell(data: viewModel.forecastWeather.currentValue.list?[indexPath.item])
+        return cell
     }
     
 }

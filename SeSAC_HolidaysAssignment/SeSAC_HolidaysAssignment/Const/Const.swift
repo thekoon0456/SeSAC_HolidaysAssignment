@@ -68,4 +68,18 @@ enum Const {
             }
         }
     }
+    
+    enum Temp {
+        case normal(temp: Double)
+        case demical(temp: Double)
+        
+        var value: String {
+            switch self {
+            case .normal(let temp):
+                String(format: "%.0f", temp - 273.15) + "°"
+            case .demical(let temp):
+                String(format: "%.1f", temp - 273.15) + "°"
+            }
+        }
+    }
 }

@@ -25,6 +25,7 @@
 		7CB7809B2B752B4800DCA4D9 /* OWPaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB7809A2B752B4800DCA4D9 /* OWPaddingLabel.swift */; };
 		7CB7809E2B75301400DCA4D9 /* ThreeHourCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB7809D2B75301400DCA4D9 /* ThreeHourCell.swift */; };
 		7CB780A02B75391000DCA4D9 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB7809F2B75391000DCA4D9 /* DateFormatterManager.swift */; };
+		7CB780A22B75446200DCA4D9 /* FiveHourCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB780A12B75446200DCA4D9 /* FiveHourCell.swift */; };
 		7CD67BDA2B73A28F00E1A718 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD67BD92B73A28F00E1A718 /* AppDelegate.swift */; };
 		7CD67BDC2B73A28F00E1A718 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD67BDB2B73A28F00E1A718 /* SceneDelegate.swift */; };
 		7CD67BE32B73A29000E1A718 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD67BE22B73A29000E1A718 /* Assets.xcassets */; };
@@ -69,6 +70,7 @@
 		7CB7809A2B752B4800DCA4D9 /* OWPaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OWPaddingLabel.swift; sourceTree = "<group>"; };
 		7CB7809D2B75301400DCA4D9 /* ThreeHourCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeHourCell.swift; sourceTree = "<group>"; };
 		7CB7809F2B75391000DCA4D9 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
+		7CB780A12B75446200DCA4D9 /* FiveHourCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveHourCell.swift; sourceTree = "<group>"; };
 		7CD67BD62B73A28F00E1A718 /* SeSAC_HolidaysAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeSAC_HolidaysAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD67BD92B73A28F00E1A718 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CD67BDB2B73A28F00E1A718 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				7CB7809D2B75301400DCA4D9 /* ThreeHourCell.swift */,
+				7CB780A12B75446200DCA4D9 /* FiveHourCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				7CD67C152B73A6CF00E1A718 /* WeatherViewModel.swift in Sources */,
 				7CD67C062B73A4CB00E1A718 /* CurrentWeather.swift in Sources */,
 				7CB7807E2B74BCFB00DCA4D9 /* UIVIew+.swift in Sources */,
+				7CB780A22B75446200DCA4D9 /* FiveHourCell.swift in Sources */,
 				7CB780872B74D13000DCA4D9 /* OWLabel.swift in Sources */,
 				7CB780922B74F45700DCA4D9 /* CityListCell.swift in Sources */,
 				7CB780752B74B40900DCA4D9 /* Error.swift in Sources */,

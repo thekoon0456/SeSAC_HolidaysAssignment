@@ -49,7 +49,10 @@ final class WeatherView: BaseView {
     }()
     
     let fiveDayTableView = UITableView().then {
+        $0.register(FiveHourCell.self, forCellReuseIdentifier: FiveHourCell.identifier)
         $0.backgroundColor = .clear
+        $0.rowHeight = 46
+        $0.isUserInteractionEnabled = false
     }
     let headerView = UIView()
     let detailWeatherCollectionView = {
@@ -140,7 +143,7 @@ final class WeatherView: BaseView {
             make.top.equalTo(threeHourCollectionView.snp.bottom).offset(40)
             make.horizontalEdges.equalToSuperview().inset(20)
             make.centerX.equalToSuperview()
-            make.height.equalTo(200)
+            make.height.equalTo(230)
         }
         
         detailWeatherCollectionView.snp.makeConstraints { make in

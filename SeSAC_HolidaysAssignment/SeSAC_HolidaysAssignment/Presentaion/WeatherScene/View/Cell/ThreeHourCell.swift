@@ -33,10 +33,10 @@ final class ThreeHourCell: BaseCollectionViewCell {
     func configureCell(data: List?) {
         guard let data else { return }
         let formattedHour = DateFormatterManager.shared.formattedDate(input: data.dtTxt,
-                                                                      inputFormat: .threeHourCell,
+                                                                      inputFormat: .dtTxt,
                                                                       outputFormat: .hour)
         timeLabel.text = formattedHour
-        tempLabel.text = String(format: "%.1f", data.main.temp - 273.15) + "°"
+        tempLabel.text = Const.Temp.demical(temp: data.main.temp).value
         guard let icon = data.weather.first?.icon else { return }
         let url = URL(string: Router.icon(icon: icon).endPoint)
         weatherIcon.kf.setImage(with: url)

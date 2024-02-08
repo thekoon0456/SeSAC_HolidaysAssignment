@@ -10,9 +10,10 @@ import Foundation
 final class DateFormatterManager {
     
     enum DateStyle: String {
-        case threeHourCell = "yyyy-MM-dd HH:mm:ss"
+        case dtTxt = "yyyy-MM-dd HH:mm:ss"
         
         case hour = "HH시"
+        case day = "E"
     }
     
     static let shared = DateFormatterManager()
