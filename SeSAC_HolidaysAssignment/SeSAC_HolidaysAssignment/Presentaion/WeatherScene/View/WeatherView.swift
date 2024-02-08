@@ -24,7 +24,7 @@ final class WeatherView: BaseView {
         $0.alpha = 0.4
     }
     
-    let cityLabel = OWFont.large(isBold: false).label
+    let cityLabel = OWFont.large(weight: .regular, alignment: .center).label
     let tempLabel = OWFont.mainTemp.label
     let weatherStateLabel = OWFont.regular.label
     let highTempLabel = OWFont.small.label

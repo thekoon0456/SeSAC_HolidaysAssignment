@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - CurrentWeather
-struct CurrentWeather: Codable {
+struct CurrentWeather: Decodable {
     let coord: Coord //위경도
     let weather: [Weather]
     let main: Main
@@ -22,17 +22,17 @@ struct CurrentWeather: Codable {
 }
 
 // MARK: - Clouds
-struct Clouds: Codable {
+struct Clouds: Decodable {
     let all: Int //구름 퍼센트
 }
 
 // MARK: - Coord
-struct Coord: Codable {
+struct Coord: Decodable {
     let lon, lat: Double
 }
 
 // MARK: - Main
-struct Main: Codable {
+struct Main: Decodable {
     let temp, feelsLike, tempMin, tempMax: Double
     let pressure, humidity: Int
 
@@ -46,19 +46,19 @@ struct Main: Codable {
 }
 
 // MARK: - Sys
-struct Sys: Codable {
+struct Sys: Decodable {
     let country: String
     let sunrise, sunset: Int
 }
 
 // MARK: - Weather
-struct Weather: Codable {
+struct Weather: Decodable {
     let id: Int
     let main, description, icon: String
 }
 
 // MARK: - Wind
-struct Wind: Codable {
+struct Wind: Decodable {
     let speed: Double
     let deg: Int
 }

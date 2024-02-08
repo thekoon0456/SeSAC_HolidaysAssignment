@@ -8,13 +8,13 @@
 import Foundation
 
 // MARK: - Forecast
-struct Forecast: Codable {
+struct Forecast: Decodable {
     let list: [List]
     let city: ForecastCity
 }
 
 // MARK: - City
-struct ForecastCity: Codable {
+struct ForecastCity: Decodable {
     let id: Int
     let name: String
     let coord: ForecastCoord
@@ -23,12 +23,12 @@ struct ForecastCity: Codable {
 }
 
 // MARK: - Coord
-struct ForecastCoord: Codable {
+struct ForecastCoord: Decodable {
     let lat, lon: Double
 }
 
 // MARK: - List
-struct List: Codable {
+struct List: Decodable {
     let dt: Int
     let main: MainClass
     let weather: [Weather]
@@ -46,7 +46,7 @@ struct List: Codable {
 }
 
 // MARK: - MainClass
-struct MainClass: Codable {
+struct MainClass: Decodable {
     let temp, feelsLike, tempMin, tempMax: Double
     let pressure, humidity: Int
 
@@ -61,7 +61,7 @@ struct MainClass: Codable {
 }
 
 // MARK: - Snow
-struct Snow: Codable {
+struct Snow: Decodable {
     let the3H: Double
 
     enum CodingKeys: String, CodingKey {
@@ -70,7 +70,7 @@ struct Snow: Codable {
 }
 
 // MARK: - Weather
-struct ForecastWeather: Codable {
+struct ForecastWeather: Decodable {
     let id: Int
     let main: String
     let description: String
@@ -78,7 +78,7 @@ struct ForecastWeather: Codable {
 }
 
 // MARK: - Wind
-struct ForecastWind: Codable {
+struct ForecastWind: Decodable {
     let speed: Double
     let deg: Int
     let gust: Double

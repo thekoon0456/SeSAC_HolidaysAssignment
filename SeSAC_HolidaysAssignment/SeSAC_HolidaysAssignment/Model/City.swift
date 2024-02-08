@@ -7,14 +7,18 @@
 
 import Foundation
 
-struct City {
+struct CityList: Decodable {
+    let cityResult: [City]
+}
+
+struct City: Decodable {
     let id: Int
     let name: String
     let country: String
     let coord: CityCoord
 }
 
-struct CityCoord {
+struct CityCoord: Decodable {
     let lon: Double
     let lat: Double
 }

@@ -28,7 +28,9 @@ final class APIManager {
     
     private init() { }
     
-    func requestAPI<T: Decodable>(api: Router, type: T.Type = T.self, completion: @escaping ((Result<T,WeatherError>) -> Void)) {
+    func requestAPI<T: Decodable>(api: Router,
+                                  type: T.Type = T.self,
+                                  completion: @escaping ((Result<T,WeatherError>) -> Void)) {
         
         guard let request = try? getRequest(api: api) else {
             completion(.failure(.wrongURL))
@@ -54,12 +56,9 @@ final class APIManager {
                 return
             }
 
-            do {
-                let result = try JSONDecoder().decode(T.self, from: data)
-                completion(.success(result))
-            } catch {
-                completion(.failure(.parseError))
-            }
+            JSONParser().parseData(type: type,
+                                        data: data,
+                                        completion: completion)
         }.resume()
     }
     
