@@ -30,25 +30,80 @@ final class WeatherViewController: BaseViewController {
     
     override func loadView() {
         super.loadView()
-        self.view = weatherView
+        
+        view = weatherView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.request()
+        bindUI()
     }
     
     // MARK: - Helpers
     
-    override func configureHierarchy() {
-        
-    }
-    
-    override func configureLayout() {
-        
-    }
-    
     override func configureView() {
-        view.backgroundColor = .green
+        weatherView.detailWeatherCollectionView.delegate = self
+        weatherView.detailWeatherCollectionView.dataSource = self
+        weatherView.threeHourCollectionView.delegate = self
+        weatherView.threeHourCollectionView.dataSource = self
+        weatherView.fiveDayTableView.delegate = self
+        weatherView.fiveDayTableView.dataSource = self
     }
+}
+
+// MARK: - Bind
+
+extension WeatherViewController {
+    
+    private func bindUI() {
+        
+        viewModel.city.bind { [weak self] city in
+            guard let self else { return }
+            weatherView.cityLabel.text = city
+        }
+        
+        viewModel.temp.bind { [weak self] temp in
+            guard let self else { return }
+            weatherView.tempLabel.text = temp
+        }
+        
+        viewModel.weatherState.bind { [weak self] state in
+            guard let self else { return }
+            weatherView.weatherStateLabel.text = state
+        }
+    }
+}
+
+// MARK: - TableView
+
+extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        return UITableViewCell()
+    }
+    
+}
+
+// MARK: - CollectionView
+
+extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        return UICollectionViewCell()
+    }
+    
 }

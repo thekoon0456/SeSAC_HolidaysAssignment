@@ -13,6 +13,8 @@
 		7CB7807A2B74B91800DCA4D9 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB780792B74B91800DCA4D9 /* City.swift */; };
 		7CB7807C2B74BA3900DCA4D9 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB7807B2B74BA3900DCA4D9 /* WeatherView.swift */; };
 		7CB7807E2B74BCFB00DCA4D9 /* UIVIew+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB7807D2B74BCFB00DCA4D9 /* UIVIew+.swift */; };
+		7CB780812B74C84E00DCA4D9 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB780802B74C84E00DCA4D9 /* Font.swift */; };
+		7CB780842B74CCCD00DCA4D9 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB780832B74CCCD00DCA4D9 /* Observable.swift */; };
 		7CD67BDA2B73A28F00E1A718 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD67BD92B73A28F00E1A718 /* AppDelegate.swift */; };
 		7CD67BDC2B73A28F00E1A718 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD67BDB2B73A28F00E1A718 /* SceneDelegate.swift */; };
 		7CD67BE32B73A29000E1A718 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD67BE22B73A29000E1A718 /* Assets.xcassets */; };
@@ -45,6 +47,8 @@
 		7CB780792B74B91800DCA4D9 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		7CB7807B2B74BA3900DCA4D9 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		7CB7807D2B74BCFB00DCA4D9 /* UIVIew+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIew+.swift"; sourceTree = "<group>"; };
+		7CB780802B74C84E00DCA4D9 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		7CB780832B74CCCD00DCA4D9 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		7CD67BD62B73A28F00E1A718 /* SeSAC_HolidaysAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeSAC_HolidaysAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD67BD92B73A28F00E1A718 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CD67BDB2B73A28F00E1A718 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +95,14 @@
 			path = JSON;
 			sourceTree = "<group>";
 		};
+		7CB780822B74CCAD00DCA4D9 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				7CB780832B74CCCD00DCA4D9 /* Observable.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		7CD67BCD2B73A28F00E1A718 = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +126,7 @@
 				7CD67C032B73A49B00E1A718 /* App */,
 				7CD67C072B73A4D100E1A718 /* Model */,
 				7CD67C002B73A3CB00E1A718 /* Network */,
+				7CB780822B74CCAD00DCA4D9 /* Utility */,
 				7CD67C042B73A4A900E1A718 /* Presentaion */,
 				7CD67C082B73A51100E1A718 /* Protocol */,
 				7CD67BF62B73A37B00E1A718 /* Extension */,
@@ -224,8 +237,9 @@
 		7CD67C1E2B73ADE200E1A718 /* Const */ = {
 			isa = PBXGroup;
 			children = (
-				7CD67C1A2B73AC6700E1A718 /* API_KEY.swift */,
 				7CD67C1F2B73ADF900E1A718 /* Const.swift */,
+				7CD67C1A2B73AC6700E1A718 /* API_KEY.swift */,
+				7CB780802B74C84E00DCA4D9 /* Font.swift */,
 			);
 			path = Const;
 			sourceTree = "<group>";
@@ -321,6 +335,7 @@
 				7CD67BEF2B73A33400E1A718 /* BaseViewController.swift in Sources */,
 				7CD67BF12B73A34800E1A718 /* BaseView.swift in Sources */,
 				7CD67C0A2B73A52200E1A718 /* CoordinatorProtocol.swift in Sources */,
+				7CB780842B74CCCD00DCA4D9 /* Observable.swift in Sources */,
 				7CB7807C2B74BA3900DCA4D9 /* WeatherView.swift in Sources */,
 				7CD67C112B73A68B00E1A718 /* WeatherCoordinator.swift in Sources */,
 				7CD67C1B2B73AC6700E1A718 /* API_KEY.swift in Sources */,
@@ -330,6 +345,7 @@
 				7CB780752B74B40900DCA4D9 /* WeatherError.swift in Sources */,
 				7CD67BDA2B73A28F00E1A718 /* AppDelegate.swift in Sources */,
 				7CD67BF32B73A35A00E1A718 /* BaseTableViewCell.swift in Sources */,
+				7CB780812B74C84E00DCA4D9 /* Font.swift in Sources */,
 				7CD67BDC2B73A28F00E1A718 /* SceneDelegate.swift in Sources */,
 				7CD67C202B73ADF900E1A718 /* Const.swift in Sources */,
 				7CB7807A2B74B91800DCA4D9 /* City.swift in Sources */,
