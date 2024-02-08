@@ -119,6 +119,7 @@ extension CitySearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.coordinator?.presentToastView()
+        
+        viewModel.presentToastView(cityName: cityList[indexPath.row].name)
     }
 }

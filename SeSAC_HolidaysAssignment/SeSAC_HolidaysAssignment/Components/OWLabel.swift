@@ -9,10 +9,12 @@ import UIKit
 
 final class OWLabel: UILabel {
     
-    init(size: CGFloat,
-         weight: UIFont.Weight = .regular,
-         color: UIColor = .white,
-         alignment: NSTextAlignment = .center) {
+    init(
+        size: CGFloat,
+        weight: UIFont.Weight = .regular,
+        color: UIColor = .white,
+        alignment: NSTextAlignment = .center
+    ) {
         super.init(frame: .zero)
         font = .systemFont(ofSize: size, weight: weight)
         textColor = color

@@ -11,11 +11,21 @@ final class ToastViewController: BaseViewController {
     
     // MARK: - Properties
     
-    private let ment = OWLabel(size: 15).then {
+    let cityName: String
+    
+    init(cityName: String) {
+        self.cityName = cityName
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    private let ment = OWPaddingLabel().then {
+        $0.font = .systemFont(ofSize: 14)
+        $0.textColor = .white
+        $0.padding = .init(top: 5, left: 10, bottom: 5, right: 10)
         $0.backgroundColor = .black
         $0.layer.borderColor = UIColor.white.cgColor
         $0.layer.borderWidth = 1
-        $0.layer.cornerRadius = 3
+        $0.layer.cornerRadius = 12
         $0.clipsToBounds = true
     }
     
@@ -27,8 +37,6 @@ final class ToastViewController: BaseViewController {
     
     override func configureLayout() {
         ment.snp.makeConstraints { make in
-            make.width.equalTo(200)
-            make.height.equalTo(20)
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().offset(-100)
         }
@@ -36,6 +44,6 @@ final class ToastViewController: BaseViewController {
     
     override func configureView() {
         view.backgroundColor = .clear
-        ment.text = "이 도시가 선택되었습니다"
+        ment.text = cityName + " 가 선택되었습니다"
     }
 }

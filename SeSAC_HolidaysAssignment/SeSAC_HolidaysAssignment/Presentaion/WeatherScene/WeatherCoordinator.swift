@@ -42,9 +42,9 @@ final class WeatherCoordinator: Coordinator {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    func presentToastView() {
+    func presentToastView(cityName: String) {
         //toast뷰 띄우기
-        let vc = ToastViewController()
+        let vc = ToastViewController(cityName: cityName)
         vc.modalPresentationStyle = .overFullScreen
         vc.modalTransitionStyle = .crossDissolve
         navigationController?.present(vc, animated: true)

@@ -35,4 +35,8 @@ final class SearchViewModel: ViewModel {
             }
         }
     }
+    
+    func presentToastView(cityName: String) {
+        coordinator?.presentToastView(cityName: cityName)
+    }
 }
