@@ -83,6 +83,5 @@ final class FiveHourCell: BaseTableViewCell {
     
     override func configureView() {
         backgroundColor = .clear
-        contentView.backgroundColor = .clear
     }
 }

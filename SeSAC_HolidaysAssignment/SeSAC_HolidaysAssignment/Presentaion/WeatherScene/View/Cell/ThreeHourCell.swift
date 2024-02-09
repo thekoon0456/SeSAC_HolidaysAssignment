@@ -67,6 +67,5 @@ final class ThreeHourCell: BaseCollectionViewCell {
     }
     
     override func configureView() {
-        contentView.backgroundColor = .clear
     }
 }

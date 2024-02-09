@@ -34,10 +34,20 @@ final class WeatherView: BaseView {
         $0.backgroundColor = .white
     }
     
-    let threeHourCollectionView = {
+    private lazy var threeHourHeaderView = OWHeaderView(type: .threeHour).then {
+        $0.addSubview(threeHourCollectionView)
+        let divider = $0.divider
+        
+        threeHourCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(divider.snp.bottom).offset(12)
+            make.width.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+    }
+    
+    lazy var threeHourCollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = .init(width: 70, height: 160)
-        layout.sectionInset = .init(top: 0, left: 20, bottom: 0, right: 0)
         layout.scrollDirection = .horizontal
         
         let cv = UICollectionView(frame: .zero,
@@ -48,20 +58,37 @@ final class WeatherView: BaseView {
         return cv
     }()
     
-    let fiveDayTableView = UITableView().then {
+    private lazy var fiveDayHeaderView = OWHeaderView(type: .fiveDays).then {
+        $0.addSubview(fiveDayTableView)
+        let divider = $0.divider
+        
+        fiveDayTableView.snp.makeConstraints { make in
+            make.top.equalTo(divider.snp.bottom).offset(12)
+            make.width.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+    }
+    
+    lazy var fiveDayTableView = UITableView().then {
         $0.register(FiveHourCell.self, forCellReuseIdentifier: FiveHourCell.identifier)
         $0.backgroundColor = .clear
         $0.separatorStyle = .none
         $0.rowHeight = 46
         $0.isUserInteractionEnabled = false
     }
-    let headerView = UIView()
-    let detailWeatherCollectionView = {
+
+    lazy var detailWeatherCollectionView = {
         let layout = UICollectionViewFlowLayout()
-        
+        let itemWidth = (Const.ScreenSize.width.value / 2) - 24
+        layout.itemSize = .init(width: itemWidth, height: itemWidth)
+        layout.minimumLineSpacing = 8
+        layout.minimumInteritemSpacing = 8
+        layout.scrollDirection = .horizontal
         
         let cv = UICollectionView(frame: .zero,
                                   collectionViewLayout: layout)
+        cv.register(DetailWeatherCell.self,
+                    forCellWithReuseIdentifier: DetailWeatherCell.identifier)
         cv.backgroundColor = .clear
         return cv
     }()
@@ -70,9 +97,7 @@ final class WeatherView: BaseView {
     
     override func configureHierarchy() {
         addSubviews(backgroundView, scrollView)
-        contentView.addSubviews(cityLabel, tempLabel, weatherStateLabel, highTempLabel, lowTempLabel, divider,
-                                threeHourCollectionView, fiveDayTableView,
-                                detailWeatherCollectionView)
+        contentView.addSubviews(cityLabel, tempLabel, weatherStateLabel, highTempLabel, lowTempLabel, divider, threeHourHeaderView, fiveDayHeaderView, detailWeatherCollectionView)
     }
     
     override func configureLayout() {
@@ -133,25 +158,25 @@ final class WeatherView: BaseView {
             make.leading.equalTo(divider.snp.trailing).offset(12)
         }
         
-        threeHourCollectionView.snp.makeConstraints { make in
+        threeHourHeaderView.snp.makeConstraints { make in
             make.top.equalTo(highTempLabel.snp.bottom).offset(40)
-            make.horizontalEdges.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.height.equalTo(160)
-        }
-        
-        fiveDayTableView.snp.makeConstraints { make in
-            make.top.equalTo(threeHourCollectionView.snp.bottom).offset(40)
             make.horizontalEdges.equalToSuperview().inset(20)
             make.centerX.equalToSuperview()
-            make.height.equalTo(230)
+            make.height.equalTo(160 + 57)
+        }
+        
+        fiveDayHeaderView.snp.makeConstraints { make in
+            make.top.equalTo(threeHourHeaderView.snp.bottom).offset(40)
+            make.horizontalEdges.equalToSuperview().inset(20)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(230 + 57)
         }
         
         detailWeatherCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(fiveDayTableView.snp.bottom).offset(40)
+            make.top.equalTo(fiveDayHeaderView.snp.bottom).offset(40)
             make.horizontalEdges.equalToSuperview().inset(20)
             make.centerX.equalToSuperview()
-            make.height.equalTo(200)
+            make.height.equalTo(Const.ScreenSize.width.value - 40)
             make.bottom.equalToSuperview()
         }
     }

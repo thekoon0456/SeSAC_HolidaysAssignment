@@ -44,7 +44,7 @@ final class WeatherViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        viewModel.request()
+        viewModel.requestWeather()
         viewModel.requestForecast()
     }
     
@@ -138,7 +138,7 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
         case weatherView.threeHourCollectionView:
             return viewModel.forecastWeather.currentValue.list?.count ?? 0
         default:
-            return 0
+            return 4
         }
     }
     
@@ -153,7 +153,12 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
             cell.configureCell(data: viewModel.forecastWeather.currentValue.list?[indexPath.item])
             return cell
         default:
-            return UICollectionViewCell()
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailWeatherCell.identifier, for: indexPath) as? DetailWeatherCell else {
+                return UICollectionViewCell()
+            }
+            
+            cell.configureCell(data: "테스트")
+            return cell
         }
     }
     

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C008B062B75E53700EFD042 /* DetailWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C008B052B75E53700EFD042 /* DetailWeatherCell.swift */; };
+		7C008B092B75EE3D00EFD042 /* OWHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C008B082B75EE3D00EFD042 /* OWHeaderView.swift */; };
 		7CB780732B74A0D500DCA4D9 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB780722B74A0D500DCA4D9 /* Router.swift */; };
 		7CB780752B74B40900DCA4D9 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB780742B74B40900DCA4D9 /* Error.swift */; };
 		7CB780782B74B8B800DCA4D9 /* CityList.json in Resources */ = {isa = PBXBuildFile; fileRef = 7CB780772B74B8B800DCA4D9 /* CityList.json */; };
@@ -53,6 +55,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7C008B052B75E53700EFD042 /* DetailWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWeatherCell.swift; sourceTree = "<group>"; };
+		7C008B082B75EE3D00EFD042 /* OWHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OWHeaderView.swift; sourceTree = "<group>"; };
 		7CB780722B74A0D500DCA4D9 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		7CB780742B74B40900DCA4D9 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		7CB780772B74B8B800DCA4D9 /* CityList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CityList.json; sourceTree = "<group>"; };
@@ -133,6 +137,7 @@
 			children = (
 				7CB780862B74D13000DCA4D9 /* OWLabel.swift */,
 				7CB7809A2B752B4800DCA4D9 /* OWPaddingLabel.swift */,
+				7C008B082B75EE3D00EFD042 /* OWHeaderView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -185,6 +190,7 @@
 			children = (
 				7CB7809D2B75301400DCA4D9 /* ThreeHourCell.swift */,
 				7CB780A12B75446200DCA4D9 /* FiveHourCell.swift */,
+				7C008B052B75E53700EFD042 /* DetailWeatherCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -424,6 +430,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C008B092B75EE3D00EFD042 /* OWHeaderView.swift in Sources */,
 				7CB7808A2B74E40900DCA4D9 /* CitySearchViewController.swift in Sources */,
 				7CD67BF92B73A38F00E1A718 /* Then+.swift in Sources */,
 				7CD67C172B73A70700E1A718 /* WeatherViewController.swift in Sources */,
@@ -457,6 +464,7 @@
 				7CB780812B74C84E00DCA4D9 /* OWFont.swift in Sources */,
 				7CB7809E2B75301400DCA4D9 /* ThreeHourCell.swift in Sources */,
 				7CD67BDC2B73A28F00E1A718 /* SceneDelegate.swift in Sources */,
+				7C008B062B75E53700EFD042 /* DetailWeatherCell.swift in Sources */,
 				7CD67C202B73ADF900E1A718 /* Const.swift in Sources */,
 				7CB7807A2B74B91800DCA4D9 /* City.swift in Sources */,
 				7CB780992B75237D00DCA4D9 /* ToastViewController.swift in Sources */,

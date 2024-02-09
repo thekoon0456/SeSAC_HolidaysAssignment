@@ -102,4 +102,18 @@ enum Const {
             }
         }
     }
+    
+    enum ScreenSize {
+        case width
+        case height
+        
+        var value: CGFloat {
+            switch self {
+            case .width:
+                UIScreen.main.bounds.width
+            case .height:
+                UIScreen.main.bounds.height
+            }
+        }
+    }
 }
