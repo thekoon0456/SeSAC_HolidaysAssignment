@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MapKit
 
 import SnapKit
 
@@ -14,6 +15,7 @@ final class WeatherView: BaseView {
     // MARK: - Properties
     
     private lazy var scrollView = UIScrollView().then {
+        $0.showsVerticalScrollIndicator = false
         $0.addSubview(contentView)
     }
     private let contentView = UIView()
@@ -40,7 +42,8 @@ final class WeatherView: BaseView {
         
         threeHourCollectionView.snp.makeConstraints { make in
             make.top.equalTo(divider.snp.bottom).offset(12)
-            make.width.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
     }
@@ -64,7 +67,8 @@ final class WeatherView: BaseView {
         
         fiveDayTableView.snp.makeConstraints { make in
             make.top.equalTo(divider.snp.bottom).offset(12)
-            make.width.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
     }
@@ -76,8 +80,34 @@ final class WeatherView: BaseView {
         $0.rowHeight = UITableView.automaticDimension
         $0.isUserInteractionEnabled = false
     }
-
-    lazy var detailWeatherCollectionView = {
+    
+    private lazy var locationHeaderView = OWHeaderView(type: .location).then {
+        $0.addSubview(mapView)
+        let divider = $0.divider
+        
+        mapView.snp.makeConstraints { make in
+            make.top.equalTo(divider.snp.bottom).offset(12)
+            make.leading.equalToSuperview().offset(12)
+            make.trailing.equalToSuperview().offset(-12)
+            make.bottom.equalToSuperview().offset(-12)
+        }
+    }
+    
+    private let mapView = MKMapView().then {
+        let locationManager = LocationManager.shared
+        let coordinate = CLLocationCoordinate2D(latitude: locationManager.lat,
+                                                longitude: locationManager.lon)
+        let region = MKCoordinateRegion(center: coordinate,
+                                       latitudinalMeters: 10000,
+                                       longitudinalMeters: 10000)
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        $0.setRegion(region, animated: true)
+        $0.addAnnotation(annotation)
+    }
+    
+    let detailWeatherCollectionView = {
         let layout = UICollectionViewFlowLayout()
         let itemWidth = (Const.ScreenSize.width.value / 2) - 24
         layout.itemSize = .init(width: itemWidth, height: itemWidth)
@@ -97,7 +127,7 @@ final class WeatherView: BaseView {
     
     override func configureHierarchy() {
         addSubviews(backgroundView, scrollView)
-        contentView.addSubviews(cityLabel, tempLabel, weatherStateLabel, highTempLabel, lowTempLabel, divider, threeHourHeaderView, fiveDayHeaderView, detailWeatherCollectionView)
+        contentView.addSubviews(cityLabel, tempLabel, weatherStateLabel, highTempLabel, lowTempLabel, divider, threeHourHeaderView, fiveDayHeaderView, locationHeaderView, detailWeatherCollectionView)
     }
     
     override func configureLayout() {
@@ -156,22 +186,29 @@ final class WeatherView: BaseView {
         
         threeHourHeaderView.snp.makeConstraints { make in
             make.top.equalTo(highTempLabel.snp.bottom).offset(40)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(160 + 57)
         }
         
         fiveDayHeaderView.snp.makeConstraints { make in
             make.top.equalTo(threeHourHeaderView.snp.bottom).offset(40)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+            make.height.equalTo(230 + 57)
+        }
+        
+        locationHeaderView.snp.makeConstraints { make in
+            make.top.equalTo(fiveDayHeaderView.snp.bottom).offset(40)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(230 + 57)
         }
         
         detailWeatherCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(fiveDayHeaderView.snp.bottom).offset(40)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.centerX.equalToSuperview()
+            make.top.equalTo(locationHeaderView.snp.bottom).offset(40)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(Const.ScreenSize.width.value - 40)
             make.bottom.equalToSuperview()
         }
