@@ -50,7 +50,7 @@ final class ThreeHourCell: BaseCollectionViewCell {
         timeLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(4)
-            make.bottom.equalTo(weatherIcon.snp.top).offset(8)
+            make.bottom.equalTo(weatherIcon.snp.top).offset(-8)
         }
 
         weatherIcon.snp.makeConstraints { make in

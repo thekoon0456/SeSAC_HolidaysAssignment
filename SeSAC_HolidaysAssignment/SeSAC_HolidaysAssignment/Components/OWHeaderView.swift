@@ -21,11 +21,13 @@ final class OWHeaderView: BaseView {
     private let icon = UIImageView().then {
         $0.contentMode = .scaleAspectFill
     }
-    private let title = OWFont.small.label
+    
+    private let title = OWFont.little.label
+    
     let divider = UIView().then {
         $0.backgroundColor = .systemGray
     }
-    
+
     // MARK: - Lifecycles
     
     convenience init(type: HeaderType) {

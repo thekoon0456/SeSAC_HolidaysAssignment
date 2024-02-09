@@ -63,7 +63,7 @@ final class WeatherViewController: BaseViewController {
         weatherView.threeHourCollectionView.dataSource = self
         weatherView.fiveDayTableView.delegate = self
         weatherView.fiveDayTableView.dataSource = self
-        
+
         navigationItem.backButtonDisplayMode = .minimal
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.bullet"),
                                                             style: .plain,
@@ -115,6 +115,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
         else {
             return UITableViewCell()
         }
+        
         let dateManager = DateFormatterManager.shared
         
         list = list.filter { weather in

@@ -45,7 +45,7 @@ final class WeatherView: BaseView {
         }
     }
     
-    lazy var threeHourCollectionView = {
+    let threeHourCollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = .init(width: 70, height: 160)
         layout.scrollDirection = .horizontal
@@ -69,11 +69,11 @@ final class WeatherView: BaseView {
         }
     }
     
-    lazy var fiveDayTableView = UITableView().then {
+    let fiveDayTableView = UITableView().then {
         $0.register(FiveHourCell.self, forCellReuseIdentifier: FiveHourCell.identifier)
         $0.backgroundColor = .clear
         $0.separatorStyle = .none
-        $0.rowHeight = 46
+        $0.rowHeight = UITableView.automaticDimension
         $0.isUserInteractionEnabled = false
     }
 
@@ -106,10 +106,6 @@ final class WeatherView: BaseView {
         }
         
         scrollView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        backgroundView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         

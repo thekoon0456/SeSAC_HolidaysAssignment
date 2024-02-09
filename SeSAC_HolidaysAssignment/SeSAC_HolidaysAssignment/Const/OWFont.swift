@@ -12,6 +12,7 @@ enum OWFont {
     case large(weight: UIFont.Weight, alignment: NSTextAlignment)
     case regular
     case small
+    case little
     
     var label: OWLabel {
         switch self {
@@ -23,6 +24,8 @@ enum OWFont {
             OWLabel(size: 25)
         case .small:
             OWLabel(size: 20)
+        case .little:
+            OWLabel(size: 15)
         }
     }
 }
