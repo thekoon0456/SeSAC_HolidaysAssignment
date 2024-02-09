@@ -113,7 +113,7 @@ final class WeatherView: BaseView {
         layout.itemSize = .init(width: itemWidth, height: itemWidth)
         layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 8
-        layout.scrollDirection = .horizontal
+        layout.scrollDirection = .vertical
         
         let cv = UICollectionView(frame: .zero,
                                   collectionViewLayout: layout)
@@ -212,9 +212,5 @@ final class WeatherView: BaseView {
             make.height.equalTo(Const.ScreenSize.width.value - 40)
             make.bottom.equalToSuperview()
         }
-    }
-    
-    override func configureView() {
-        
     }
 }

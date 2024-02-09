@@ -96,6 +96,7 @@ extension WeatherViewController {
                 guard let self else { return }
                 weatherView.threeHourCollectionView.reloadData()
                 weatherView.fiveDayTableView.reloadData()
+                weatherView.detailWeatherCollectionView.reloadData()
             }
         }
     }
@@ -139,7 +140,7 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
         case weatherView.threeHourCollectionView:
             return viewModel.forecastWeather.currentValue.list?.count ?? 0
         default:
-            return 4
+            return viewModel.detailWeather.currentValue.count
         }
     }
     
@@ -158,7 +159,7 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
                 return UICollectionViewCell()
             }
             
-            cell.configureCell(data: "테스트")
+            cell.configureCell(data: viewModel.detailWeather.currentValue[indexPath.item])
             return cell
         }
     }

@@ -24,7 +24,7 @@ final class DetailWeatherCell: BaseCollectionViewCell {
         $0.contentMode = .scaleAspectFill
         $0.tintColor = .systemGray
     }
-    private let titleLabel = OWFont.small.label.then {
+    private let titleLabel = OWFont.little.label.then {
         $0.textColor = .systemGray
     }
     
@@ -32,9 +32,10 @@ final class DetailWeatherCell: BaseCollectionViewCell {
     
     // MARK: - Helpers
     
-    func configureCell(data: String) {
-        titleLabel.text = data
-        valueLabel.text = data
+    func configureCell(data: DetailWeather) {
+        icon.image = UIImage(systemName: data.image)
+        titleLabel.text = data.title
+        valueLabel.text = data.value
     }
     
     override func configureHierarchy() {
@@ -53,13 +54,14 @@ final class DetailWeatherCell: BaseCollectionViewCell {
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)
-            make.leading.equalTo(icon.snp.trailing).offset(4)
+            make.leading.equalTo(icon.snp.trailing).offset(8)
             make.height.equalTo(20)
         }
         
         valueLabel.snp.makeConstraints { make in
             make.top.equalTo(icon.snp.bottom).offset(8)
-            make.width.equalToSuperview().offset(-8)
+            make.leading.equalToSuperview().offset(8)
+            make.trailing.equalToSuperview().offset(-8)
             make.centerX.equalToSuperview()
         }
     }

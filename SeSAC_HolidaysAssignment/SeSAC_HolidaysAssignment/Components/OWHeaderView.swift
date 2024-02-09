@@ -57,7 +57,7 @@ final class OWHeaderView: BaseView {
         
         title.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(12)
-            make.leading.equalTo(icon.snp.trailing).offset(4)
+            make.leading.equalTo(icon.snp.trailing).offset(8)
             make.height.equalTo(20)
         }
         
