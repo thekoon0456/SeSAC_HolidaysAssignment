@@ -8,6 +8,7 @@
 import Foundation
 
 // MARK: - CurrentWeather
+
 struct CurrentWeather: Decodable {
     let coord: Coord? //위경도
     let weather: [Weather]?
@@ -20,7 +21,9 @@ struct CurrentWeather: Decodable {
     let id: Int?
     let name: String? //도시 이름
     
-    static let defaultModel = CurrentWeather(coord: nil, weather: nil, main: nil, visibility: nil, wind: nil, clouds: nil, dt: nil, sys: nil, id: nil, name: nil)
+    static let defaultModel = CurrentWeather(coord: nil, weather: nil, main: nil,
+                                             visibility: nil, wind: nil, clouds: nil,
+                                             dt: nil, sys: nil, id: nil, name: nil)
 }
 
 // MARK: - Clouds

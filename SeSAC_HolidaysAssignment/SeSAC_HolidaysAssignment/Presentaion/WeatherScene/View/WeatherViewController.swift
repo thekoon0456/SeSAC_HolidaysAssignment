@@ -17,9 +17,8 @@ final class WeatherViewController: BaseViewController {
     
     // MARK: - Properties
     
-    private let weatherView = WeatherView()
-    
     private let viewModel: WeatherViewModel
+    private let weatherView = WeatherView()
     
     // MARK: - Lifecycles
     
