@@ -13,11 +13,11 @@ import UIKit
  lon: 127.049696
  */
 
-final class WeatherViewController: BaseViewController {
+final class WeatherViewController: BaseViewController, VMViewController {
     
     // MARK: - Properties
     
-    private let viewModel: WeatherViewModel
+    let viewModel: WeatherViewModel
     private let weatherView = WeatherView()
     
     // MARK: - Lifecycles

@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CitySearchViewController: BaseViewController {
+final class CitySearchViewController: BaseViewController, VMViewController {
     
     // MARK: - Properties
     

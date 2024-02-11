@@ -65,7 +65,4 @@ final class ThreeHourCell: BaseCollectionViewCell {
             make.bottom.equalToSuperview().offset(-4)
         }
     }
-    
-    override func configureView() {
-    }
 }

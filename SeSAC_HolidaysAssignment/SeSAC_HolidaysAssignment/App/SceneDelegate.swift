@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: scene)
         window?.makeKeyAndVisible()
-        window?.overrideUserInterfaceStyle = .dark
+//        window?.overrideUserInterfaceStyle = .dark
         
         let nav = UINavigationController()
         nav.navigationBar.tintColor = .white

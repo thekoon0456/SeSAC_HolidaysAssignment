@@ -12,5 +12,4 @@ protocol ViewModel: AnyObject {
     
     var coordinator: T? { get }
     
-    
 }
