@@ -12,17 +12,11 @@ struct Forecast: Decodable {
     let list: [List]?
     let city: ForecastCity?
     
-//    static let defaultModel = Forecast(list: nil, city: nil)
+    static let defaultModel = Forecast(list: nil, city: nil)
     
     enum CodingKeys: CodingKey {
         case list
         case city
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.list = try container.decodeIfPresent([List].self, forKey: .list)
-        self.city = try container.decodeIfPresent(ForecastCity.self, forKey: .city)
     }
 }
 

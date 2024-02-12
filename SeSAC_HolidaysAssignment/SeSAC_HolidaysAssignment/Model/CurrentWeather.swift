@@ -21,7 +21,9 @@ struct CurrentWeather: Decodable {
     let id: Int?
     let name: String? //도시 이름
     
-//    static let defaultModel = CurrentWeather()
+    static var defaultModel: CurrentWeather {
+        return CurrentWeather(coord: nil, weather: nil, main: nil, visibility: nil, wind: nil, clouds: nil, dt: nil, sys: nil, id: nil, name: nil)
+    }
     
     enum CodingKeys: CodingKey {
         case coord
@@ -34,20 +36,6 @@ struct CurrentWeather: Decodable {
         case sys
         case id
         case name
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.coord = try container.decodeIfPresent(Coord.self, forKey: .coord)
-        self.weather = try container.decodeIfPresent([Weather].self, forKey: .weather)
-        self.main = try container.decodeIfPresent(Main.self, forKey: .main)
-        self.visibility = try container.decodeIfPresent(Int.self, forKey: .visibility)
-        self.wind = try container.decodeIfPresent(Wind.self, forKey: .wind)
-        self.clouds = try container.decodeIfPresent(Clouds.self, forKey: .clouds)
-        self.dt = try container.decodeIfPresent(Int.self, forKey: .dt)
-        self.sys = try container.decodeIfPresent(Sys.self, forKey: .sys)
-        self.id = try container.decodeIfPresent(Int.self, forKey: .id)
-        self.name = try container.decodeIfPresent(String.self, forKey: .name)
     }
 }
 
