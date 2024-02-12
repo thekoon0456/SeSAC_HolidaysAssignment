@@ -16,15 +16,7 @@ struct City: Codable {
     let coord: CityCoord
     
     static let key: String = "CityKEY"
-//    static let defaultCity = City(id: 0, name: "", country: "", coord: CityCoord(lon: 0, lat: 0))
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decode(Int.self, forKey: .id)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.country = try container.decode(String.self, forKey: .country)
-        self.coord = try container.decode(CityCoord.self, forKey: .coord)
-    }
+    static let defaultCity = City(id: 1846266, name: "Seoul", country: "KR", coord: CityCoord(lon: 127.049696, lat: 37.654165))
 }
 
 struct CityCoord: Codable {

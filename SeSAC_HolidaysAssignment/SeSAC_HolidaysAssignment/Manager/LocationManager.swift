@@ -13,6 +13,6 @@ final class LocationManager {
     
     private init() { }
     
-    var lat: Double = 37.654165
-    var lon: Double = 127.049696
+    var lat: Double = UserDefaultsManager.shared.city.coord.lat
+    var lon: Double = UserDefaultsManager.shared.city.coord.lon
 }

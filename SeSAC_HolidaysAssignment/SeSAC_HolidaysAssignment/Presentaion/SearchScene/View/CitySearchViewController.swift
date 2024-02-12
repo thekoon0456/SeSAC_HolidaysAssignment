@@ -137,6 +137,7 @@ extension CitySearchViewController: UITableViewDelegate, UITableViewDataSource {
         locationManater.lat = coord.lat
         locationManater.lon = coord.lon
         
+        UserDefaultsManager.shared.city = cityList[indexPath.row]
         viewModel.presentToastView(cityName: cityList[indexPath.row].name)
     }
 }
