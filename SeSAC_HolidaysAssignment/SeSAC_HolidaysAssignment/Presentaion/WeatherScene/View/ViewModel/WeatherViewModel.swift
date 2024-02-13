@@ -35,7 +35,21 @@ final class WeatherViewModel: ViewModel {
                 currentWeather.onNext(success)
                 detailWeather.onNext(success.detailWeather)
             case .failure(let failure):
-                print(failure)
+                DispatchQueue.main.async {  [weak self] in
+                    guard let self else { return }
+                    coordinator?.showAlert(title: failure.title,
+                                           message: failure.description,
+                                           primaryButtonTitle: "재시도하기",
+                                           cancleButtonTitle: "확인",
+                                           primaryAction: { [weak self] in
+                        guard let self else { return }
+                        requestForecast()
+                    }, cancleAction: { [weak self] in
+                        guard let self else { return }
+                        coordinator?.dismiss()
+                    })
+                }
+                
             }
         }
     }
@@ -43,14 +57,27 @@ final class WeatherViewModel: ViewModel {
     func requestForecast() {
         let coord = UserDefaultsManager.shared.city.coord
         
-        APIManager.shared.requestAPI(api: .locationForecast(lat: coord.lat, lon: coord.lon), type: Forecast.self) { [weak self] result in
+        APIManager.shared.requestAPI(api: .locationForecast(lat:1243124, lon: coord.lon), type: Forecast.self) { [weak self] result in
             guard let self else { return }
-
+            
             switch result {
             case .success(let success):
                 forecastWeather.onNext(success)
             case .failure(let failure):
-                print(failure)
+                DispatchQueue.main.async {  [weak self] in
+                    guard let self else { return }
+                    coordinator?.showAlert(title: failure.title,
+                                           message: failure.description,
+                                           primaryButtonTitle: "재시도하기",
+                                           cancleButtonTitle: "확인",
+                                           primaryAction: { [weak self] in
+                        guard let self else { return }
+                        requestForecast()
+                    }, cancleAction: { [weak self] in
+                        guard let self else { return }
+                        coordinator?.dismiss()
+                    })
+                }
             }
         }
     }
