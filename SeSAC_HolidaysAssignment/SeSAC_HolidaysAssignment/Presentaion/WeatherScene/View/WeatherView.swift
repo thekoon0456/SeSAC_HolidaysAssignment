@@ -151,7 +151,9 @@ final class WeatherView: BaseView {
     
     override func configureHierarchy() {
         addSubviews(backgroundView, scrollView, bottomNavigationView)
-        contentView.addSubviews(cityLabel, tempLabel, weatherStateLabel, highTempLabel, lowTempLabel, divider, threeHourHeaderView, fiveDayHeaderView, locationHeaderView, detailWeatherCollectionView)
+        contentView.addSubviews(cityLabel, tempLabel, weatherStateLabel, highTempLabel,
+                                lowTempLabel, divider, threeHourHeaderView, fiveDayHeaderView,
+                                locationHeaderView, detailWeatherCollectionView)
     }
     
     override func configureLayout() {

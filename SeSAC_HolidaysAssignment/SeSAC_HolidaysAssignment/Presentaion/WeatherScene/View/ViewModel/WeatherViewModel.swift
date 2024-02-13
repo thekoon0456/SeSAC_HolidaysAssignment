@@ -57,7 +57,7 @@ final class WeatherViewModel: ViewModel {
     func requestForecast() {
         let coord = UserDefaultsManager.shared.city.coord
         
-        APIManager.shared.requestAPI(api: .locationForecast(lat:1243124, lon: coord.lon), type: Forecast.self) { [weak self] result in
+        APIManager.shared.requestAPI(api: .locationForecast(lat: coord.lat, lon: coord.lon), type: Forecast.self) { [weak self] result in
             guard let self else { return }
             
             switch result {

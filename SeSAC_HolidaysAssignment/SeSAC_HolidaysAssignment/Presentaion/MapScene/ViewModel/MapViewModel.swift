@@ -13,6 +13,8 @@ final class MapViewModel: ViewModel {
     
     weak var coordinator: WeatherCoordinator?
     
+    
+    
     // MARK: - Lifecycles
     
     init(coordinator: WeatherCoordinator?) {

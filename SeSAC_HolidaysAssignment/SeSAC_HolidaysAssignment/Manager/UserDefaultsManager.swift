@@ -14,7 +14,7 @@ final class UserDefaultsManager {
     @UserDefault(key: City.key, defaultValue: City.defaultCity)
     var city: City
     
-    init() { }
+    private init() { }
 }
 
 @propertyWrapper

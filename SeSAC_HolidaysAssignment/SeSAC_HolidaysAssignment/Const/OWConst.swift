@@ -118,16 +118,14 @@ enum OWConst {
     }
     
     enum Map {
-        case meter
-        case zoom
+        case defaultMeter
         
         var value: Double {
             switch self {
-            case .meter:
-                return 10000
-            case .zoom:
-                return 1000
+            case .defaultMeter:
+                return 100000
             }
         }
     }
+    
 }

@@ -35,6 +35,7 @@ final class WeatherViewController: BaseViewController, VMViewController {
         viewModel.coordinator?.presentLoadView()
         setButtons()
         setRefreshControl()
+        setMapViewGesture()
         bindUI()
     }
     
@@ -44,6 +45,7 @@ final class WeatherViewController: BaseViewController, VMViewController {
         setMapAnnotation()
         viewModel.requestWeather()
         viewModel.requestForecast()
+        print(LocationManager.shared.coordinate.latitude)
     }
     
     // MARK: - Selectors
@@ -177,9 +179,13 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
     
 }
 
-// MARK: - Configure
+// MARK: - Refrech
 
 extension WeatherViewController {
+    
+    func setRefreshControl() {
+        weatherView.refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+    }
     
     @objc func refreshData() {
         viewModel.requestWeather()
@@ -190,10 +196,11 @@ extension WeatherViewController {
             weatherView.refreshControl.endRefreshing()
         }
     }
-    
-    func setRefreshControl() {
-        weatherView.refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
-    }
+}
+
+// MARK: - Configure
+
+extension WeatherViewController {
     
     func setButtons() {
         weatherView.mapButton.addTarget(self, action: #selector(mapButtonTapped), for: .touchUpInside)
@@ -201,15 +208,23 @@ extension WeatherViewController {
     }
     
     func setMapAnnotation() {
-        let city = UserDefaultsManager.shared.city
-        let coordinate = CLLocationCoordinate2D(latitude: city.coord.lat,
-                                                longitude: city.coord.lon)
-        let region = MKCoordinateRegion(center: coordinate,
-                                        latitudinalMeters: OWConst.Map.meter.value,
-                                        longitudinalMeters: OWConst.Map.meter.value)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
-        weatherView.mapView.setRegion(region, animated: true)
-        weatherView.mapView.addAnnotation(annotation)
+        let locationManager = LocationManager.shared
+        
+        locationManager.getPlacemark(location: locationManager.location) { [weak self] locality, country in
+            guard let self else { return }
+            locationManager.setAnnotation(mapView: weatherView.mapView,
+                                          coordinate: locationManager.coordinate,
+                                          title: locality,
+                                          subTitle: "현재 위치")
+        }
+    }
+    
+    func setMapViewGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(mapViewTapped))
+        weatherView.mapView.addGestureRecognizer(tap)
+    }
+    
+    @objc func mapViewTapped() {
+        viewModel.coordinator?.puchToMapVC()
     }
 }
