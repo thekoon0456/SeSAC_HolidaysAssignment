@@ -23,7 +23,7 @@ final class CitySearchViewController: BaseViewController, VMViewController {
     }
     
     private lazy var searchBar = UISearchBar().then {
-        $0.placeholder = "Search for a city"
+        $0.placeholder = OWConst.Ment.placeHolder.text
         $0.barTintColor = .clear
         $0.searchTextField.backgroundColor = .secondarySystemFill
         $0.searchTextField.textColor = .white

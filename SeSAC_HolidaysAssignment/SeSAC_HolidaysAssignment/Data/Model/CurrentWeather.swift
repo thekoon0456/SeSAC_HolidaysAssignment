@@ -34,6 +34,7 @@ struct CurrentWeather: Decodable {
         case name
     }
     
+    //DetailWeather로 변환한 모델
     lazy var detailWeather = setDetailWeather(self)
 }
 
@@ -81,6 +82,7 @@ struct Wind: Decodable {
 
 extension CurrentWeather {
     
+    //DetailWeather로 변환
     private func setDetailWeather(_ input: CurrentWeather) -> [DetailWeather] {
         var arr: [DetailWeather] = []
         let wind = DetailWeather(type: .wind, image: "wind", title: "바람 속도", value: String(input.wind?.speed ?? 0) + "m/s")

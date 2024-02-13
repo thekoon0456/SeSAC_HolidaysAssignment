@@ -40,8 +40,8 @@ final class WeatherViewModel: ViewModel {
                     guard let self else { return }
                     coordinator?.showAlert(title: failure.title,
                                            message: failure.description,
-                                           primaryButtonTitle: "재시도하기",
-                                           cancleButtonTitle: "확인",
+                                           primaryButtonTitle: OWConst.Ment.retry.text,
+                                           cancleButtonTitle: OWConst.Ment.ok.text,
                                            primaryAction: { [weak self] in
                         guard let self else { return }
                         requestForecast { }
@@ -70,8 +70,8 @@ final class WeatherViewModel: ViewModel {
                     guard let self else { return }
                     coordinator?.showAlert(title: failure.title,
                                            message: failure.description,
-                                           primaryButtonTitle: "재시도하기",
-                                           cancleButtonTitle: "확인",
+                                           primaryButtonTitle: OWConst.Ment.retry.text,
+                                           cancleButtonTitle: OWConst.Ment.ok.text,
                                            primaryAction: { [weak self] in
                         guard let self else { return }
                         requestForecast { }

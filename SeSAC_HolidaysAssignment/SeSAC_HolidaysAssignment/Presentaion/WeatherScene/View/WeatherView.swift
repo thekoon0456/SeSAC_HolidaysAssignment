@@ -120,14 +120,14 @@ final class WeatherView: BaseView {
     }()
     
     let listButton = UIButton().then {
-        let image = UIImage(systemName: "list.bullet")
+        let image = OWConst.Icon.list.image
         $0.setImage(image, for: .normal)
         $0.tintColor = .white
         $0.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 25), forImageIn: .normal)
     }
     
     let mapButton = UIButton().then {
-        let image = UIImage(systemName: "map")
+        let image = OWConst.Icon.map.image
         $0.setImage(image, for: .normal)
         $0.tintColor = .white
         $0.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 25), forImageIn: .normal)

@@ -9,6 +9,8 @@ import Foundation
 
 final class Observable<T> {
     
+    // MARK: - Properties
+    
     typealias Listener = (T) -> Void
     
     private var listener: Listener?
@@ -23,9 +25,13 @@ final class Observable<T> {
         value
     }
     
+    // MARK: - Lifecycles
+    
     init(_ value: T) {
         self.value = value
     }
+    
+    // MARK: - Helpers
     
     func bind(listener: Listener?) {
         self.listener = listener

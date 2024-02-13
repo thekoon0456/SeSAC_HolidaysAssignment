@@ -33,9 +33,6 @@ final class WeatherViewController: BaseViewController, VMViewController {
         super.viewDidLoad()
         
         viewModel.coordinator?.presentLoadView()
-        setButtons()
-        setRefreshControl()
-        setMapViewGesture()
         bindUI()
     }
     
@@ -85,6 +82,9 @@ final class WeatherViewController: BaseViewController, VMViewController {
         weatherView.fiveDayTableView.delegate = self
         weatherView.fiveDayTableView.dataSource = self
         navigationItem.backButtonDisplayMode = .minimal
+        setButtons()
+        setRefreshControl()
+        setMapViewGesture()
     }
 }
 
@@ -102,8 +102,10 @@ extension WeatherViewController {
                 weatherView.cityLabel.text = weather.name
                 weatherView.tempLabel.text = OWConst.Temp.demical(temp: main.temp).value
                 weatherView.weatherStateLabel.text = weather.weather?.first?.description
-                weatherView.highTempLabel.text = OWConst.Temp.high.value + OWConst.Temp.demical(temp: main.tempMax).value
-                weatherView.lowTempLabel.text = OWConst.Temp.low.value +  OWConst.Temp.demical(temp: main.tempMin).value
+                weatherView.highTempLabel.text = OWConst.Temp.high.value
+                + OWConst.Temp.demical(temp: main.tempMax).value
+                weatherView.lowTempLabel.text = OWConst.Temp.low.value
+                +  OWConst.Temp.demical(temp: main.tempMin).value
             }
         }
         
@@ -160,12 +162,12 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
         switch collectionView {
         case weatherView.threeHourCollectionView:
             guard let forecastWeatherList = viewModel.forecastWeather.currentValue?.list else { return 0 }
-            
             return forecastWeatherList.count
+            
         case weatherView.detailWeatherCollectionView:
             guard let detailWeather = viewModel.detailWeather.currentValue else { return 0 }
-            
             return detailWeather.count
+            
         default:
             return 0
         }
@@ -178,17 +180,17 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
                   let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThreeHourCell.identifier, for: indexPath) as? ThreeHourCell else {
                 return UICollectionViewCell()
             }
-            
             cell.configureCell(data: forecastWeatherList[indexPath.item])
             return cell
+            
         case weatherView.detailWeatherCollectionView:
             guard let detailWeather = viewModel.detailWeather.currentValue,
                   let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailWeatherCell.identifier, for: indexPath) as? DetailWeatherCell else {
                 return UICollectionViewCell()
             }
-            
             cell.configureCell(data: detailWeather[indexPath.item])
             return cell
+            
         default:
             return UICollectionViewCell()
         }
@@ -243,7 +245,7 @@ extension WeatherViewController {
             locationManager.setAnnotation(mapView: weatherView.mapView,
                                           coordinate: locationManager.coordinate,
                                           title: locality,
-                                          subTitle: "현재 위치")
+                                          subTitle: OWConst.Title.currentLocation.text)
         }
     }
     

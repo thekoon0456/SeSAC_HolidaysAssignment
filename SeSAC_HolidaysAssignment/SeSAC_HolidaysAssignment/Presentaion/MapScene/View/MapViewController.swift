@@ -20,7 +20,7 @@ final class MapViewController: BaseViewController, VMViewController {
     }
     
     private lazy var currentLocationButton = UIButton().then {
-        let image = UIImage(systemName: "mappin")
+        let image = OWConst.Icon.mappin.image
         $0.setImage(image, for: .normal)
         $0.addTarget(self, action: #selector(currentLocationButtonTapped), for: .touchUpInside)
         $0.tintColor = .black
@@ -102,7 +102,7 @@ final class MapViewController: BaseViewController, VMViewController {
     }
     
     override func configureView() {
-        navigationItem.title = "지도로 날씨 선택하기"
+        navigationItem.title = OWConst.Title.mapTitle.text
     }
 }
 

@@ -11,37 +11,58 @@ enum OWConst {
     
     enum BGImage {
         case sunny
-        case cloudy
-        case rainy
-        case snowing
         
         var image: UIImage? {
             switch self {
             case .sunny:
                 UIImage(named: "sunny")
-            case .cloudy:
-                UIImage(named: "cloudy")
-            case .rainy:
-                UIImage(named: "rainy")
-            case .snowing:
-                UIImage(named: "snowing")
+            }
+        }
+    }
+    
+    enum Icon {
+        case list
+        case map
+        case mappin
+        case calender
+        case thermometer
+        
+        var image: UIImage? {
+            switch self {
+            case .list:
+                UIImage(systemName: "list.bullet")
+            case .map:
+                UIImage(systemName: "map")
+            case .mappin:
+                UIImage(systemName: "mappin")
+            case .calender:
+                UIImage(systemName: "calendar")
+            case .thermometer:
+                UIImage(systemName: "thermometer.medium")
             }
         }
     }
     
     enum Title {
-        case collectionViewTitle(count: String)
+        case threeHourForecast
+        case fiveDaysForecast
+        case mapTitle
         case location
         case wind
         case cloud
         case pressure
         case humidity
         case city
+        case currentLocation
         
         var text: String {
             switch self {
-            case .collectionViewTitle(let count):
-                "\(count) 일기예보"
+            case .threeHourForecast:
+                "3시간 간격의 일기예보"
+            case .fiveDaysForecast:
+                "5일 간의 일기예보"
+            case .mapTitle:
+                "지도로 날씨 선택하기"
             case .location:
                 "위치"
             case .wind:
@@ -54,6 +75,31 @@ enum OWConst {
                 "습도"
             case .city:
                 "City"
+            case .currentLocation:
+                "현재 위치"
+            }
+        }
+    }
+    
+    enum Ment {
+        case setLocation
+        case setting
+        case placeHolder
+        case retry
+        case ok
+        
+        var text: String {
+            switch self {
+            case .setLocation:
+                "해당 지역의 날씨를 설정하시겠습니까?"
+            case .setting:
+                "설정하기"
+            case .placeHolder:
+                "Search for a city"
+            case .retry:
+                "재시도하기"
+            case .ok:
+                "확인"
             }
         }
     }

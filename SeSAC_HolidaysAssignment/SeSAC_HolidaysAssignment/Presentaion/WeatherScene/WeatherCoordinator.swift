@@ -57,12 +57,14 @@ final class WeatherCoordinator: Coordinator {
     
     func showMapAlert(location: String, action: (() -> Void)?) {
         showAlert(title: "\(location)",
-                  message: "해당 지역의 날씨를 설정하시겠습니까?",
-                  primaryButtonTitle: "설정하기") {
+                  message: OWConst.Ment.setLocation.text,
+                  primaryButtonTitle: OWConst.Ment.setting.text) { [weak self] in
+            guard let self else { return }
             action?()
-            self.pop()
-        } cancleAction: {
-            self.dismiss()
+            pop()
+        } cancleAction: { [weak self] in
+            guard let self else { return }
+            dismiss()
         }
     }
     

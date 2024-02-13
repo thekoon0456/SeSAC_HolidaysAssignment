@@ -89,14 +89,14 @@ extension OWHeaderView {
         var result: HeaderContent {
             switch self {
             case .threeHour:
-                HeaderContent(image: UIImage(systemName: "calendar"),
-                              title: "3시간 간격의 일기예보")
+                HeaderContent(image: OWConst.Icon.calender.image,
+                              title: OWConst.Title.threeHourForecast.text)
             case .fiveDays:
-                HeaderContent(image: UIImage(systemName: "calendar"),
-                              title: "5일 간의 일기예보")
+                HeaderContent(image: OWConst.Icon.calender.image,
+                              title: OWConst.Title.fiveDaysForecast.text)
             case .location:
-                HeaderContent(image: UIImage(systemName: "thermometer.medium"),
-                              title: "위치")
+                HeaderContent(image: OWConst.Icon.thermometer.image,
+                              title: OWConst.Title.location.text)
             }
         }
     }
