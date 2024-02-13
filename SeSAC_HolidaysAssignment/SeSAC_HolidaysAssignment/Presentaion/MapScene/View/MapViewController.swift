@@ -19,6 +19,20 @@ final class MapViewController: BaseViewController, VMViewController {
         $0.delegate = self
     }
     
+    private lazy var currentLocationButton = UIButton().then {
+        let image = UIImage(systemName: "mappin")
+        $0.setImage(image, for: .normal)
+        $0.addTarget(self, action: #selector(currentLocationButtonTapped), for: .touchUpInside)
+        $0.tintColor = .black
+        $0.backgroundColor = .white
+        $0.layer.cornerRadius = 25
+        $0.clipsToBounds = true
+    }
+    
+    @objc func currentLocationButtonTapped() {
+        mapView.setRegion(locationManager.region, animated: true)
+    }
+    
     // MARK: - Lifecycles
     
     init(viewModel: MapViewModel) {
@@ -52,6 +66,7 @@ final class MapViewController: BaseViewController, VMViewController {
                                             latitudinalMeters: OWConst.Map.defaultMeter.value,
                                             longitudinalMeters: OWConst.Map.defaultMeter.value)
             mapView.setRegion(region, animated: true)
+            locationManager.region = region
             
             locationManager.getPlacemark(location: clLocation) { [weak self] locality, country in
                 guard let self else { return }
@@ -71,12 +86,18 @@ final class MapViewController: BaseViewController, VMViewController {
     }
     
     override func configureHierarchy() {
-        view.addSubview(mapView)
+        view.addSubviews(mapView, currentLocationButton)
     }
     
     override func configureLayout() {
         mapView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+        
+        currentLocationButton.snp.makeConstraints { make in
+            make.size.equalTo(50)
+            make.leading.equalToSuperview().offset(20)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
         }
     }
     

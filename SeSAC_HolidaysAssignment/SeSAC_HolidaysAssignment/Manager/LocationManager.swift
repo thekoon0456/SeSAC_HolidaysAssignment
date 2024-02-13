@@ -13,11 +13,14 @@ final class LocationManager {
     // MARK: - Properties
     
     static let shared = LocationManager()
-
+    
     var selectedCoord = UserDefaultsManager.shared.city.coord
     lazy var location = CLLocation(latitude: selectedCoord.lat, longitude: selectedCoord.lon)
     lazy var coordinate = CLLocationCoordinate2D(latitude: selectedCoord.lat,
                                                  longitude: selectedCoord.lon)
+    lazy var region = MKCoordinateRegion(center: coordinate,
+                                         latitudinalMeters: OWConst.Map.defaultMeter.value,
+                                         longitudinalMeters: OWConst.Map.defaultMeter.value)
     
     // MARK: - Lifecycles
     
@@ -73,6 +76,6 @@ final class LocationManager {
         selectedCoord = UserDefaultsManager.shared.city.coord
         location = CLLocation(latitude: selectedCoord.lat, longitude: selectedCoord.lon)
         coordinate = CLLocationCoordinate2D(latitude: selectedCoord.lat,
-                                                     longitude: selectedCoord.lon)
+                                            longitude: selectedCoord.lon)
     }
 }

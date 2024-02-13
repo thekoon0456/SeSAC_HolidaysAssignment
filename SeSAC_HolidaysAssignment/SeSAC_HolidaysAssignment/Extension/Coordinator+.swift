@@ -20,7 +20,7 @@ extension Coordinator {
                                       message: message,
                                       preferredStyle: .alert)
         
-        alert.view.tintColor = .tintColor
+        alert.view.tintColor = .white
         
         let defaultButton = UIAlertAction(title: primaryButtonTitle, style: .default) { _ in
             primaryAction()

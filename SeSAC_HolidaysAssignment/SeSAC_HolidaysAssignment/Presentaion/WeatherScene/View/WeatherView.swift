@@ -99,7 +99,9 @@ final class WeatherView: BaseView {
         }
     }
     
-    let mapView = MKMapView()
+    let mapView = MKMapView().then {
+        $0.isScrollEnabled = false
+    }
     
     let detailWeatherCollectionView = {
         let layout = UICollectionViewFlowLayout()
