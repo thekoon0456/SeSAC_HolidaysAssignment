@@ -38,6 +38,7 @@ final class WeatherViewController: BaseViewController, VMViewController {
         super.viewDidLoad()
         
         viewModel.coordinator?.presentLoadView()
+        setButtons()
         bindUI()
     }
     
@@ -51,15 +52,21 @@ final class WeatherViewController: BaseViewController, VMViewController {
     
     // MARK: - Selectors
     
+    @objc func mapButtonTapped() {
+        print("눌림")
+        viewModel.coordinator?.puchToMapVC()
+    }
+    
     @objc func listButtonTapped() {
         viewModel.coordinator?.pushToSearchVC()
     }
     
-    @objc func mapButtonTapped() {
-        viewModel.coordinator?.puchToMapVC()
-    }
-    
     // MARK: - Helpers
+    
+    func setButtons() {
+        weatherView.mapButton.addTarget(self, action: #selector(mapButtonTapped), for: .touchUpInside)
+        weatherView.listButton.addTarget(self, action: #selector(listButtonTapped), for: .touchUpInside)
+    }
     
     func setMapAnnotation() {
         let city = UserDefaultsManager.shared.city
@@ -82,17 +89,7 @@ final class WeatherViewController: BaseViewController, VMViewController {
         weatherView.threeHourCollectionView.dataSource = self
         weatherView.fiveDayTableView.delegate = self
         weatherView.fiveDayTableView.dataSource = self
-        
         navigationItem.backButtonDisplayMode = .minimal
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.bullet"),
-                                                            style: .plain,
-                                                            target: self,
-                                                            action: #selector(listButtonTapped))
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "map"),
-                                                           style: .plain,
-                                                           target: self,
-                                                           action: #selector(mapButtonTapped))
     }
 }
 
@@ -161,13 +158,16 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        guard let forecastWeather = viewModel.forecastWeather.currentValue else { return 0 }
+        guard let forecastWeather = viewModel.forecastWeather.currentValue,
+              let detailWeather = viewModel.detailWeather.currentValue else { return 0 }
         
         switch collectionView {
         case weatherView.threeHourCollectionView:
             return forecastWeather.list?.count ?? 0
+        case weatherView.detailWeatherCollectionView:
+            return detailWeather.count
         default:
-            return forecastWeather.list?.count ?? 0
+            return 0
         }
     }
     
@@ -185,13 +185,15 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
             
             cell.configureCell(data: list[indexPath.item])
             return cell
-        default:
+        case weatherView.detailWeatherCollectionView:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailWeatherCell.identifier, for: indexPath) as? DetailWeatherCell else {
                 return UICollectionViewCell()
             }
             
             cell.configureCell(data: detailWeather[indexPath.item])
             return cell
+        default:
+            return UICollectionViewCell()
         }
     }
     

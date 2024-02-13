@@ -111,10 +111,40 @@ final class WeatherView: BaseView {
         return cv
     }()
     
+    let listButton = UIButton().then {
+        let image = UIImage(systemName: "list.bullet")
+        $0.setImage(image, for: .normal)
+        $0.tintColor = .white
+        $0.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 30), forImageIn: .normal)
+    }
+    
+    let mapButton = UIButton().then {
+        let image = UIImage(systemName: "map")
+        $0.setImage(image, for: .normal)
+        $0.tintColor = .white
+        $0.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 30), forImageIn: .normal)
+    }
+    
+    lazy var bottomNavigationView = UIView().then {
+        $0.addSubviews(mapButton, listButton)
+        
+        mapButton.snp.makeConstraints { make in
+            make.size.equalTo(50)
+            make.leading.equalToSuperview().offset(20)
+            make.centerY.equalToSuperview()
+        }
+        
+        listButton.snp.makeConstraints { make in
+            make.size.equalTo(50)
+            make.trailing.equalToSuperview().offset(-20)
+            make.centerY.equalToSuperview()
+        }
+    }
+    
     // MARK: - Helpers
     
     override func configureHierarchy() {
-        addSubviews(backgroundView, scrollView)
+        addSubviews(backgroundView, scrollView, bottomNavigationView)
         contentView.addSubviews(cityLabel, tempLabel, weatherStateLabel, highTempLabel, lowTempLabel, divider, threeHourHeaderView, fiveDayHeaderView, locationHeaderView, detailWeatherCollectionView)
     }
     
@@ -124,7 +154,9 @@ final class WeatherView: BaseView {
         }
         
         scrollView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalTo(bottomNavigationView.snp.top)
+            make.horizontalEdges.equalToSuperview()
         }
         
         contentView.snp.makeConstraints { make in
@@ -133,7 +165,7 @@ final class WeatherView: BaseView {
         }
         
         cityLabel.snp.makeConstraints { make in
-            make.top .equalToSuperview()
+            make.top.equalToSuperview()
             make.horizontalEdges.equalToSuperview().inset(40)
             make.height.equalTo(40)
             make.centerX.equalToSuperview()
@@ -199,6 +231,12 @@ final class WeatherView: BaseView {
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(Const.ScreenSize.width.value - 40)
             make.bottom.equalToSuperview()
+        }
+        
+        bottomNavigationView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.height.equalTo(80)
         }
     }
 }
