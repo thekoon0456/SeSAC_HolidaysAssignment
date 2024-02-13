@@ -31,9 +31,9 @@ final class WeatherViewModel: ViewModel {
             guard let self else { return }
             
             switch result {
-            case .success(let success):
+            case .success(var success):
                 currentWeather.onNext(success)
-                detailWeather.onNext(setDetailWeather(success))
+                detailWeather.onNext(success.detailWeather)
             case .failure(let failure):
                 print(failure)
             }
@@ -53,18 +53,5 @@ final class WeatherViewModel: ViewModel {
                 print(failure)
             }
         }
-    }
-    
-    private func setDetailWeather(_ input: CurrentWeather) -> [DetailWeather] {
-        var arr: [DetailWeather] = []
-        let wind = DetailWeather(type: .wind, image: "wind", title: "바람 속도", value: String(input.wind?.speed ?? 0) + "m/s")
-        arr.append(wind)
-        let cloud = DetailWeather(type: .cloud, image: "cloud", title: "구름", value: String(input.clouds?.all ?? 0) + "%")
-        arr.append(cloud)
-        let pressure = DetailWeather(type: .pressure, image: "thermometer.medium", title: "기압", value: String(input.main?.pressure ?? 0) + "hpa")
-        arr.append(pressure)
-        let humidity = DetailWeather(type: .humidity, image: "humidity", title: "습도", value: String(input.main?.humidity ?? 0) + "%")
-        arr.append(humidity)
-        return arr
     }
 }

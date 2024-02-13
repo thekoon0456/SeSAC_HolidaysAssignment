@@ -79,7 +79,6 @@ extension WeatherViewController {
                       let weather,
                       let main = weather.main
                 else { return }
-                
                 weatherView.cityLabel.text = weather.name
                 weatherView.tempLabel.text = OWConst.Temp.demical(temp: main.temp).value
                 weatherView.weatherStateLabel.text = weather.weather?.first?.description
@@ -101,7 +100,6 @@ extension WeatherViewController {
                 guard let self else { return }
                 weatherView.detailWeatherCollectionView.reloadData()
             }
-            
         }
     }
 }
@@ -139,14 +137,14 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
 extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        guard let forecastWeather = viewModel.forecastWeather.currentValue,
-              let detailWeather = viewModel.detailWeather.currentValue else { return 0 }
-        
         switch collectionView {
         case weatherView.threeHourCollectionView:
-            return forecastWeather.list?.count ?? 0
+            guard let forecastWeatherList = viewModel.forecastWeather.currentValue?.list else { return 0 }
+            
+            return forecastWeatherList.count
         case weatherView.detailWeatherCollectionView:
+            guard let detailWeather = viewModel.detailWeather.currentValue else { return 0 }
+            
             return detailWeather.count
         default:
             return 0
@@ -154,21 +152,18 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        guard let forecastWeather = viewModel.forecastWeather.currentValue,
-              let detailWeather = viewModel.detailWeather.currentValue,
-              let list = forecastWeather.list else { return UICollectionViewCell() }
-        
         switch collectionView {
         case weatherView.threeHourCollectionView:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThreeHourCell.identifier, for: indexPath) as? ThreeHourCell else {
+            guard let forecastWeatherList = viewModel.forecastWeather.currentValue?.list,
+                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThreeHourCell.identifier, for: indexPath) as? ThreeHourCell else {
                 return UICollectionViewCell()
             }
             
-            cell.configureCell(data: list[indexPath.item])
+            cell.configureCell(data: forecastWeatherList[indexPath.item])
             return cell
         case weatherView.detailWeatherCollectionView:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailWeatherCell.identifier, for: indexPath) as? DetailWeatherCell else {
+            guard let detailWeather = viewModel.detailWeather.currentValue,
+                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailWeatherCell.identifier, for: indexPath) as? DetailWeatherCell else {
                 return UICollectionViewCell()
             }
             
