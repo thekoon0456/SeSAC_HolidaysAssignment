@@ -17,6 +17,11 @@ final class WeatherView: BaseView {
     private lazy var scrollView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
         $0.addSubview(contentView)
+        $0.refreshControl = refreshControl
+    }
+    
+    let refreshControl = UIRefreshControl().then {
+        $0.tintColor = .white
     }
     private let contentView = UIView()
     
@@ -79,6 +84,7 @@ final class WeatherView: BaseView {
         $0.separatorStyle = .none
         $0.rowHeight = UITableView.automaticDimension
         $0.isUserInteractionEnabled = false
+        $0.backgroundColor = .clear
     }
     
     private lazy var locationHeaderView = OWHeaderView(type: .location).then {

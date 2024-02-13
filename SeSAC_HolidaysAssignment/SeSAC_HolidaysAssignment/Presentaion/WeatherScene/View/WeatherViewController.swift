@@ -34,6 +34,7 @@ final class WeatherViewController: BaseViewController, VMViewController {
         
         viewModel.coordinator?.presentLoadView()
         setButtons()
+        setRefreshControl()
         bindUI()
     }
     
@@ -179,6 +180,20 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
 // MARK: - Configure
 
 extension WeatherViewController {
+    
+    @objc func refreshData() {
+        viewModel.requestWeather()
+        viewModel.requestForecast()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) { [weak self] in
+            guard let self else { return }
+            weatherView.refreshControl.endRefreshing()
+        }
+    }
+    
+    func setRefreshControl() {
+        weatherView.refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+    }
     
     func setButtons() {
         weatherView.mapButton.addTarget(self, action: #selector(mapButtonTapped), for: .touchUpInside)
