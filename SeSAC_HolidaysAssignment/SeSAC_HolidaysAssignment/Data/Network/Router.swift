@@ -16,8 +16,7 @@ enum Router {
     
     var baseURL: String {
         switch self {
-        case .locationWeather, .cityWeather,
-                .locationForecast, .cityForecast:
+        case .locationWeather, .cityWeather, .locationForecast, .cityForecast:
             "https://api.openweathermap.org"
         case .icon:
             "https://openweathermap.org"
@@ -26,8 +25,7 @@ enum Router {
     
     var method: String {
         switch self {
-        case .locationWeather, .cityWeather,
-                .locationForecast, .cityForecast, .icon:
+        case .locationWeather, .cityWeather, .locationForecast, .cityForecast, .icon:
             "GET"
         }
     }
@@ -45,13 +43,11 @@ enum Router {
     
     var param: [String: String] {
         switch self {
-        case .locationWeather(let lat, let lon),
-                .locationForecast(let lat, let lon):
+        case .locationWeather(let lat, let lon), .locationForecast(let lat, let lon):
             ["lat": "\(lat)",
              "lon": "\(lon)",
              "appid": API_KEY.openWeather.key]
-        case .cityWeather(let id),
-                .cityForecast(let id):
+        case .cityWeather(let id), .cityForecast(let id):
             ["id": "\(id)",
              "appid": API_KEY.openWeather.key]
         case .icon:

@@ -8,23 +8,18 @@
 import MapKit
 import UIKit
 
-/*
- id: 1846266
- lat: 37.654165
- lon: 127.049696
- */
-
 final class WeatherViewController: BaseViewController, VMViewController {
     
     // MARK: - Properties
     
     let viewModel: WeatherViewModel
-    private let weatherView = WeatherView()
+    private let weatherView: WeatherView
     
     // MARK: - Lifecycles
     
     init(viewModel: WeatherViewModel) {
         self.viewModel = viewModel
+        weatherView = WeatherView()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -45,15 +40,14 @@ final class WeatherViewController: BaseViewController, VMViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        setMapAnnotation()
         viewModel.requestWeather()
         viewModel.requestForecast()
-        setMapAnnotation()
     }
     
     // MARK: - Selectors
     
     @objc func mapButtonTapped() {
-        print("눌림")
         viewModel.coordinator?.puchToMapVC()
     }
     
@@ -62,25 +56,6 @@ final class WeatherViewController: BaseViewController, VMViewController {
     }
     
     // MARK: - Helpers
-    
-    func setButtons() {
-        weatherView.mapButton.addTarget(self, action: #selector(mapButtonTapped), for: .touchUpInside)
-        weatherView.listButton.addTarget(self, action: #selector(listButtonTapped), for: .touchUpInside)
-    }
-    
-    func setMapAnnotation() {
-        let city = UserDefaultsManager.shared.city
-        let coordinate = CLLocationCoordinate2D(latitude: city.coord.lat,
-                                                longitude: city.coord.lon)
-        let region = MKCoordinateRegion(center: coordinate,
-                                        latitudinalMeters: 10000,
-                                        longitudinalMeters: 10000)
-        
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
-        weatherView.mapView.setRegion(region, animated: true)
-        weatherView.mapView.addAnnotation(annotation)
-    }
     
     override func configureView() {
         weatherView.detailWeatherCollectionView.delegate = self
@@ -106,10 +81,10 @@ extension WeatherViewController {
                 else { return }
                 
                 weatherView.cityLabel.text = weather.name
-                weatherView.tempLabel.text = Const.Temp.demical(temp: main.temp).value
+                weatherView.tempLabel.text = OWConst.Temp.demical(temp: main.temp).value
                 weatherView.weatherStateLabel.text = weather.weather?.first?.description
-                weatherView.highTempLabel.text = Const.Temp.high.value + Const.Temp.demical(temp: main.tempMax).value
-                weatherView.lowTempLabel.text = Const.Temp.low.value +  Const.Temp.demical(temp: main.tempMin).value
+                weatherView.highTempLabel.text = OWConst.Temp.high.value + OWConst.Temp.demical(temp: main.tempMax).value
+                weatherView.lowTempLabel.text = OWConst.Temp.low.value +  OWConst.Temp.demical(temp: main.tempMin).value
             }
         }
         
@@ -118,8 +93,15 @@ extension WeatherViewController {
                 guard let self else { return }
                 weatherView.threeHourCollectionView.reloadData()
                 weatherView.fiveDayTableView.reloadData()
+            }
+        }
+        
+        viewModel.detailWeather.bind { detailWeather in
+            DispatchQueue.main.async {  [weak self] in
+                guard let self else { return }
                 weatherView.detailWeatherCollectionView.reloadData()
             }
+            
         }
     }
 }
@@ -143,7 +125,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
         
         list = list.filter { weather in
             let day = dateManager.formattedDate(input: weather.dtTxt, inputFormat: .dtTxt, outputFormat: .hour)
-            return day == Const.Time.twelve.value ? true : false
+            return day == OWConst.Time.twelve.value ? true : false
         }
         
         cell.configureCell(data: list[indexPath.item])
@@ -197,4 +179,27 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
     }
     
+}
+
+// MARK: - Configure
+
+extension WeatherViewController {
+    
+    func setButtons() {
+        weatherView.mapButton.addTarget(self, action: #selector(mapButtonTapped), for: .touchUpInside)
+        weatherView.listButton.addTarget(self, action: #selector(listButtonTapped), for: .touchUpInside)
+    }
+    
+    func setMapAnnotation() {
+        let city = UserDefaultsManager.shared.city
+        let coordinate = CLLocationCoordinate2D(latitude: city.coord.lat,
+                                                longitude: city.coord.lon)
+        let region = MKCoordinateRegion(center: coordinate,
+                                        latitudinalMeters: OWConst.Map.meter.value,
+                                        longitudinalMeters: OWConst.Map.meter.value)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        weatherView.mapView.setRegion(region, animated: true)
+        weatherView.mapView.addAnnotation(annotation)
+    }
 }

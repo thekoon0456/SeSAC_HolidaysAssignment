@@ -24,7 +24,7 @@ final class SearchViewModel: ViewModel {
     
     func parseJSON() {
         let decoder = JSONParser()
-        let data = decoder.readJSON(name: Const.JSON.cityList.fileName)
+        let data = decoder.readJSON(name: OWConst.JSON.cityList.fileName)
         
         decoder.parseData(type: [City].self, data: data) { result in
             switch result {

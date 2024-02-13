@@ -8,23 +8,22 @@
 import MapKit
 import UIKit
 
-final class MapViewController: BaseViewController {
+final class MapViewController: BaseViewController, VMViewController {
     
     // MARK: - Properties
     
     let viewModel: MapViewModel
-//    let locationManager = LocationManager.shared
+    private let selectedCoord = UserDefaultsManager.shared.city.coord
+    lazy var location = CLLocation(latitude: selectedCoord.lat, longitude: selectedCoord.lon)
     lazy var coordinate = CLLocationCoordinate2D(latitude: selectedCoord.lat,
-                                            longitude: selectedCoord.lon)
+                                                 longitude: selectedCoord.lon)
     lazy var region = MKCoordinateRegion(center: coordinate,
-                                   latitudinalMeters: 10000,
-                                   longitudinalMeters: 10000)
+                                         latitudinalMeters: OWConst.Map.meter.value,
+                                         longitudinalMeters: OWConst.Map.meter.value)
     
     private lazy var mapView = MKMapView().then {
         $0.delegate = self
     }
-    
-    private let selectedCoord = UserDefaultsManager.shared.city.coord
     
     // MARK: - Lifecycles
     
@@ -36,8 +35,11 @@ final class MapViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setAnnotation(coordinate: coordinate, title: "현재 위치", subTitle: "여기")
         setGesture()
+        getPlacemark(location: location) { [weak self] locality, country in
+            guard let self else { return }
+            setAnnotation(coordinate: coordinate, title: locality, subTitle: "현재")
+        }
     }
     
     func setGesture() {
@@ -59,16 +61,20 @@ final class MapViewController: BaseViewController {
         removeAllAnnotations()
         
         if sender.state == .ended {
-//            removeAllAnnotations()
-            
             let location = sender.location(in: mapView)
             let coordinate = mapView.convert(location, toCoordinateFrom: mapView)
+            let lat = coordinate.latitude
+            let lon = coordinate.longitude
+            let clLocation = CLLocation(latitude: lat, longitude: lon)
             let region = MKCoordinateRegion(center: coordinate,
-                                            latitudinalMeters: 1000,
-                                            longitudinalMeters: 1000)
-            
+                                            latitudinalMeters: OWConst.Map.zoom.value,
+                                            longitudinalMeters: OWConst.Map.zoom.value)
             mapView.setRegion(region, animated: true)
-            setAnnotation(coordinate: coordinate, title: "여기", subTitle: "선택")
+            
+            getPlacemark(location: clLocation) { [weak self] locality, country in
+                guard let self else { return }
+                setAnnotation(coordinate: coordinate, title: locality, subTitle: "선택")
+            }
         }
     }
     
@@ -90,22 +96,45 @@ final class MapViewController: BaseViewController {
     override func configureView() {
         navigationItem.title = "지도로 날씨 선택하기"
     }
+    
+    func getPlacemark(location: CLLocation, completion: @escaping ((locality: String, country: String)) -> Void) {
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(location) { placemarks, error in
+            
+            if let error {
+                print(error.localizedDescription)
+                print("DEBUG: 주소 변환 에러")
+            }
+            
+            guard let placemark = placemarks?.last else { return }
+            
+            if let locality = placemark.locality,
+               let country = placemark.country {
+                completion((locality, country))
+                return
+            }
+            
+            if let adArea = placemark.administrativeArea,
+               let country = placemark.country {
+                completion((adArea, country))
+                return
+            }
+        }
+    }
 }
 
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
-        showAlert(title: "지역 선택",
-                  message: "해당 지역의 날씨를 설정하시겠습니까?",
-                  primaryButtonTitle: "설정하기") {
-            let lat = annotation.coordinate.latitude
-            let lon = annotation.coordinate.longitude
-            
-            UserDefaultsManager.shared.city = City(id: 0, name: "선택", country: "KR", coord: CityCoord(lat: lat, lon: lon))
-            
-            self.viewModel.coordinator?.pop()
-        } cancleAction: {
-            self.dismiss(animated: true)
+        let lat = annotation.coordinate.latitude
+        let lon = annotation.coordinate.longitude
+        let location = CLLocation(latitude: lat, longitude: lon)
+        
+        getPlacemark(location: location) { [weak self] locality, country in
+            guard let self else { return }
+            viewModel.coordinator?.showMapAlert(location: locality) {
+                UserDefaultsManager.shared.city = City(id: 0, name: locality, country: country, coord: CityCoord(lat: lat, lon: lon))
+            }
         }
     }
 }

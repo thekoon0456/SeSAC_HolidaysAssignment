@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum Const {
+enum OWConst {
     
     enum BGImage {
         case sunny
@@ -113,6 +113,20 @@ enum Const {
                 UIScreen.main.bounds.width
             case .height:
                 UIScreen.main.bounds.height
+            }
+        }
+    }
+    
+    enum Map {
+        case meter
+        case zoom
+        
+        var value: Double {
+            switch self {
+            case .meter:
+                return 10000
+            case .zoom:
+                return 1000
             }
         }
     }

@@ -21,7 +21,7 @@ final class WeatherView: BaseView {
     private let contentView = UIView()
     
     private let backgroundView = UIImageView().then {
-        $0.image = Const.BGImage.sunny.image
+        $0.image = OWConst.BGImage.sunny.image
         $0.contentMode = .scaleAspectFill
         $0.alpha = 0.4
     }
@@ -97,7 +97,7 @@ final class WeatherView: BaseView {
     
     let detailWeatherCollectionView = {
         let layout = UICollectionViewFlowLayout()
-        let itemWidth = (Const.ScreenSize.width.value / 2) - 24
+        let itemWidth = (OWConst.ScreenSize.width.value / 2) - 24
         layout.itemSize = .init(width: itemWidth, height: itemWidth)
         layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 8
@@ -115,14 +115,14 @@ final class WeatherView: BaseView {
         let image = UIImage(systemName: "list.bullet")
         $0.setImage(image, for: .normal)
         $0.tintColor = .white
-        $0.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 30), forImageIn: .normal)
+        $0.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 25), forImageIn: .normal)
     }
     
     let mapButton = UIButton().then {
         let image = UIImage(systemName: "map")
         $0.setImage(image, for: .normal)
         $0.tintColor = .white
-        $0.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 30), forImageIn: .normal)
+        $0.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 25), forImageIn: .normal)
     }
     
     lazy var bottomNavigationView = UIView().then {
@@ -229,7 +229,7 @@ final class WeatherView: BaseView {
             make.top.equalTo(locationHeaderView.snp.bottom).offset(40)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
-            make.height.equalTo(Const.ScreenSize.width.value - 40)
+            make.height.equalTo(OWConst.ScreenSize.width.value - 40)
             make.bottom.equalToSuperview()
         }
         

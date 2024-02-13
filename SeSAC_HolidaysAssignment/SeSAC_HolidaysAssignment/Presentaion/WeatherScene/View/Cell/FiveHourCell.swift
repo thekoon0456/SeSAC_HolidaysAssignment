@@ -12,6 +12,8 @@ import SnapKit
 
 final class FiveHourCell: BaseTableViewCell {
     
+    // MARK: - Properties
+    
     private var dayLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 25)
         $0.textColor = .white
@@ -34,6 +36,8 @@ final class FiveHourCell: BaseTableViewCell {
         $0.textAlignment = .right
     }
     
+    // MARK: - Helpers
+    
     func configureCell(data: List?) {
         guard let data else { return }
         let dateManager = DateFormatterManager.shared
@@ -43,10 +47,10 @@ final class FiveHourCell: BaseTableViewCell {
         guard let icon = data.weather.first?.icon else { return }
         let url = URL(string: Router.icon(icon: icon).endPoint)
         
-        dayLabel.text = formattedDay == dateManager.todayString() ? Const.Time.today.value : formattedDay
+        dayLabel.text = formattedDay == dateManager.todayString() ? OWConst.Time.today.value : formattedDay
         weatherIcon.kf.setImage(with: url)
-        lowTempLabel.text =  Const.Temp.low.value + Const.Temp.normal(temp: data.main.tempMin).value
-        highTempLabel.text = Const.Temp.high.value + Const.Temp.normal(temp: data.main.tempMax).value
+        lowTempLabel.text =  OWConst.Temp.low.value + OWConst.Temp.normal(temp: data.main.tempMin).value
+        highTempLabel.text = OWConst.Temp.high.value + OWConst.Temp.normal(temp: data.main.tempMax).value
     }
     
     override func configureHierarchy() {

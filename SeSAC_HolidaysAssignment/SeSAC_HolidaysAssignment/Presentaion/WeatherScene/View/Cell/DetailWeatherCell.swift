@@ -24,6 +24,7 @@ final class DetailWeatherCell: BaseCollectionViewCell {
         $0.contentMode = .scaleAspectFill
         $0.tintColor = .systemGray
     }
+    
     private let titleLabel = OWFont.little.label.then {
         $0.textColor = .systemGray
     }

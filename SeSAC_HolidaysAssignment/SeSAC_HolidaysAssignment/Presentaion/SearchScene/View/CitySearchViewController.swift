@@ -19,7 +19,7 @@ final class CitySearchViewController: BaseViewController, VMViewController {
     }
     
     private let titleLabel = OWFont.large(weight: .bold, alignment: .left).label.then {
-        $0.text = Const.Title.city.text
+        $0.text = OWConst.Title.city.text
     }
     
     private lazy var searchBar = UISearchBar().then {

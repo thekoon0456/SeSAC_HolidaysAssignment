@@ -12,7 +12,6 @@ final class WeatherViewModel: ViewModel {
     // MARK: - Properties
     
     weak var coordinator: WeatherCoordinator?
-//    private let location = LocationManager.shared
     var currentWeather: Observable<CurrentWeather?> = Observable(nil)
     var forecastWeather: Observable<Forecast?> = Observable(nil)
     var detailWeather: Observable<[DetailWeather]?> = Observable(nil)
@@ -26,9 +25,9 @@ final class WeatherViewModel: ViewModel {
     // MARK: - Helpers
     
     func requestWeather() {
-        let city = UserDefaultsManager.shared.city
+        let coord = UserDefaultsManager.shared.city.coord
         
-        APIManager.shared.requestAPI(api: .locationWeather(lat: city.coord.lat, lon: city.coord.lon), type: CurrentWeather.self) { [weak self] result in
+        APIManager.shared.requestAPI(api: .locationWeather(lat: coord.lat, lon: coord.lon), type: CurrentWeather.self) { [weak self] result in
             guard let self else { return }
             
             switch result {
@@ -42,9 +41,9 @@ final class WeatherViewModel: ViewModel {
     }
     
     func requestForecast() {
-        let city = UserDefaultsManager.shared.city
+        let coord = UserDefaultsManager.shared.city.coord
         
-        APIManager.shared.requestAPI(api: .locationForecast(lat: city.coord.lat, lon: city.coord.lon), type: Forecast.self) { [weak self] result in
+        APIManager.shared.requestAPI(api: .locationForecast(lat: coord.lat, lon: coord.lon), type: Forecast.self) { [weak self] result in
             guard let self else { return }
 
             switch result {
@@ -55,7 +54,6 @@ final class WeatherViewModel: ViewModel {
             }
         }
     }
-    
     
     private func setDetailWeather(_ input: CurrentWeather) -> [DetailWeather] {
         var arr: [DetailWeather] = []

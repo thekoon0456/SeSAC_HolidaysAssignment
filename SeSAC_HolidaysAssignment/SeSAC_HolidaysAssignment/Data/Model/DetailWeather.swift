@@ -12,8 +12,6 @@ struct DetailWeather {
     let image: String
     let title: String
     let value: String
-    
-    static let defaultModel = DetailWeather(type: .cloud, image: "", title: "", value: "")
 }
 
 enum DetailWeatherType: CaseIterable {

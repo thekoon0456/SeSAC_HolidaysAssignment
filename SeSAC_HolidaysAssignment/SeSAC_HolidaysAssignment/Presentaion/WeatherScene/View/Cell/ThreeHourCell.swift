@@ -36,7 +36,8 @@ final class ThreeHourCell: BaseCollectionViewCell {
                                                                       inputFormat: .dtTxt,
                                                                       outputFormat: .hour)
         timeLabel.text = formattedHour
-        tempLabel.text = Const.Temp.demical(temp: data.main.temp).value
+        tempLabel.text = OWConst.Temp.demical(temp: data.main.temp).value
+        
         guard let icon = data.weather.first?.icon else { return }
         let url = URL(string: Router.icon(icon: icon).endPoint)
         weatherIcon.kf.setImage(with: url)
