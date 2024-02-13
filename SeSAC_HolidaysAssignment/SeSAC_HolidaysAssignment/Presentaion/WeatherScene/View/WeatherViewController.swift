@@ -5,6 +5,7 @@
 //  Created by Deokhun KIM on 2/7/24.
 //
 
+import MapKit
 import UIKit
 
 /*
@@ -45,6 +46,7 @@ final class WeatherViewController: BaseViewController, VMViewController {
         
         viewModel.requestWeather()
         viewModel.requestForecast()
+        setMapAnnotation()
     }
     
     // MARK: - Selectors
@@ -53,7 +55,25 @@ final class WeatherViewController: BaseViewController, VMViewController {
         viewModel.coordinator?.pushToSearchVC()
     }
     
+    @objc func mapButtonTapped() {
+        viewModel.coordinator?.puchToMapVC()
+    }
+    
     // MARK: - Helpers
+    
+    func setMapAnnotation() {
+        let city = UserDefaultsManager.shared.city
+        let coordinate = CLLocationCoordinate2D(latitude: city.coord.lat,
+                                                longitude: city.coord.lon)
+        let region = MKCoordinateRegion(center: coordinate,
+                                        latitudinalMeters: 10000,
+                                        longitudinalMeters: 10000)
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        weatherView.mapView.setRegion(region, animated: true)
+        weatherView.mapView.addAnnotation(annotation)
+    }
     
     override func configureView() {
         weatherView.detailWeatherCollectionView.delegate = self
@@ -62,12 +82,17 @@ final class WeatherViewController: BaseViewController, VMViewController {
         weatherView.threeHourCollectionView.dataSource = self
         weatherView.fiveDayTableView.delegate = self
         weatherView.fiveDayTableView.dataSource = self
-
+        
         navigationItem.backButtonDisplayMode = .minimal
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.bullet"),
                                                             style: .plain,
                                                             target: self,
                                                             action: #selector(listButtonTapped))
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "map"),
+                                                           style: .plain,
+                                                           target: self,
+                                                           action: #selector(mapButtonTapped))
     }
 }
 
@@ -79,6 +104,7 @@ extension WeatherViewController {
         viewModel.currentWeather.bind { weather in
             DispatchQueue.main.async { [weak self] in
                 guard let self,
+                      let weather,
                       let main = weather.main
                 else { return }
                 
@@ -111,7 +137,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FiveHourCell.identifier, for: indexPath) as? FiveHourCell,
-              var list = viewModel.forecastWeather.currentValue.list
+              var list = viewModel.forecastWeather.currentValue?.list
         else {
             return UITableViewCell()
         }
@@ -135,15 +161,21 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
+        guard let forecastWeather = viewModel.forecastWeather.currentValue else { return 0 }
+        
         switch collectionView {
         case weatherView.threeHourCollectionView:
-            return viewModel.forecastWeather.currentValue.list?.count ?? 0
+            return forecastWeather.list?.count ?? 0
         default:
-            return viewModel.detailWeather.currentValue.count
+            return forecastWeather.list?.count ?? 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        guard let forecastWeather = viewModel.forecastWeather.currentValue,
+              let detailWeather = viewModel.detailWeather.currentValue,
+              let list = forecastWeather.list else { return UICollectionViewCell() }
         
         switch collectionView {
         case weatherView.threeHourCollectionView:
@@ -151,14 +183,14 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
                 return UICollectionViewCell()
             }
             
-            cell.configureCell(data: viewModel.forecastWeather.currentValue.list?[indexPath.item])
+            cell.configureCell(data: list[indexPath.item])
             return cell
         default:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailWeatherCell.identifier, for: indexPath) as? DetailWeatherCell else {
                 return UICollectionViewCell()
             }
             
-            cell.configureCell(data: viewModel.detailWeather.currentValue[indexPath.item])
+            cell.configureCell(data: detailWeather[indexPath.item])
             return cell
         }
     }

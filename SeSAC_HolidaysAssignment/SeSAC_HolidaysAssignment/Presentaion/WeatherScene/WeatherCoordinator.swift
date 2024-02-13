@@ -53,6 +53,12 @@ final class WeatherCoordinator: Coordinator {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    func puchToMapVC() {
+        let vm = MapViewModel(coordinator: self)
+        let vc = MapViewController(viewModel: vm)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func presentToastView(cityName: String) {
         //toast뷰 띄우기
         let vc = ToastViewController(cityName: cityName)
