@@ -132,11 +132,6 @@ extension CitySearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let locationManater = LocationManager.shared
-        let coord = cityList[indexPath.row].coord
-        locationManater.lat = coord.lat
-        locationManater.lon = coord.lon
-        
         UserDefaultsManager.shared.city = cityList[indexPath.row]
         viewModel.presentToastView(cityName: cityList[indexPath.row].name)
     }

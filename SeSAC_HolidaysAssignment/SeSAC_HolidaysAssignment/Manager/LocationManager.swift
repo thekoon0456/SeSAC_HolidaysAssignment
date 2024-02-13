@@ -7,12 +7,12 @@
 
 import Foundation
 
-final class LocationManager {
-    
-    static let shared = LocationManager()
-    
-    private init() { }
-    
-    var lat: Double = UserDefaultsManager.shared.city.coord.lat
-    var lon: Double = UserDefaultsManager.shared.city.coord.lon
-}
+//final class LocationManager {
+//    
+//    static let shared = LocationManager()
+//    
+//    private init() { }
+//    
+//    var lat: Double = UserDefaultsManager.shared.city.coord.lat
+//    var lon: Double = UserDefaultsManager.shared.city.coord.lon
+//}

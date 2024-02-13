@@ -16,10 +16,11 @@ struct City: Codable {
     let coord: CityCoord
     
     static let key: String = "CityKEY"
-    static let defaultCity = City(id: 1846266, name: "Seoul", country: "KR", coord: CityCoord(lon: 127.049696, lat: 37.654165))
+    static let defaultCity = City(id: 1846266, name: "Seoul", country: "KR", coord: CityCoord(lat: 37.654165,
+                                                                                              lon: 127.049696))
 }
 
 struct CityCoord: Codable {
-    let lon: Double
     let lat: Double
+    let lon: Double
 }

@@ -13,22 +13,18 @@ final class MapViewController: BaseViewController {
     // MARK: - Properties
     
     let viewModel: MapViewModel
-    let locationManager = LocationManager.shared
-    lazy var coordinate = CLLocationCoordinate2D(latitude: locationManager.lat,
-                                            longitude: locationManager.lon)
+//    let locationManager = LocationManager.shared
+    lazy var coordinate = CLLocationCoordinate2D(latitude: selectedCoord.lat,
+                                            longitude: selectedCoord.lon)
     lazy var region = MKCoordinateRegion(center: coordinate,
                                    latitudinalMeters: 10000,
                                    longitudinalMeters: 10000)
     
     private lazy var mapView = MKMapView().then {
-
-        
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
-        $0.setRegion(region, animated: true)
-        
         $0.delegate = self
     }
+    
+    private let selectedCoord = UserDefaultsManager.shared.city.coord
     
     // MARK: - Lifecycles
     
@@ -60,8 +56,11 @@ final class MapViewController: BaseViewController {
     }
     
     @objc func mapViewTapped(sender: UITapGestureRecognizer) {
+        removeAllAnnotations()
+        
         if sender.state == .ended {
-
+//            removeAllAnnotations()
+            
             let location = sender.location(in: mapView)
             let coordinate = mapView.convert(location, toCoordinateFrom: mapView)
             let region = MKCoordinateRegion(center: coordinate,
@@ -96,19 +95,17 @@ final class MapViewController: BaseViewController {
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
-        print("눌림")
         showAlert(title: "지역 선택",
                   message: "해당 지역의 날씨를 설정하시겠습니까?",
                   primaryButtonTitle: "설정하기") {
             let lat = annotation.coordinate.latitude
             let lon = annotation.coordinate.longitude
             
-            self.locationManager.lat = lat
-            self.locationManager.lon = lon
+            UserDefaultsManager.shared.city = City(id: 0, name: "선택", country: "KR", coord: CityCoord(lat: lat, lon: lon))
+            
+            self.viewModel.coordinator?.pop()
         } cancleAction: {
             self.dismiss(animated: true)
         }
-
     }
-
 }

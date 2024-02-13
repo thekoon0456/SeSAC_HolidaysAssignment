@@ -20,11 +20,7 @@ struct CurrentWeather: Decodable {
     let sys: Sys?  //해뜨고지는시간
     let id: Int?
     let name: String? //도시 이름
-    
-    static var defaultModel: CurrentWeather {
-        return CurrentWeather(coord: nil, weather: nil, main: nil, visibility: nil, wind: nil, clouds: nil, dt: nil, sys: nil, id: nil, name: nil)
-    }
-    
+
     enum CodingKeys: CodingKey {
         case coord
         case weather

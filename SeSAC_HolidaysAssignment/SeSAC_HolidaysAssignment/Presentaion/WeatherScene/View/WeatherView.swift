@@ -93,19 +93,7 @@ final class WeatherView: BaseView {
         }
     }
     
-    private let mapView = MKMapView().then {
-        let locationManager = LocationManager.shared
-        let coordinate = CLLocationCoordinate2D(latitude: locationManager.lat,
-                                                longitude: locationManager.lon)
-        let region = MKCoordinateRegion(center: coordinate,
-                                       latitudinalMeters: 10000,
-                                       longitudinalMeters: 10000)
-        
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
-        $0.setRegion(region, animated: true)
-        $0.addAnnotation(annotation)
-    }
+    let mapView = MKMapView()
     
     let detailWeatherCollectionView = {
         let layout = UICollectionViewFlowLayout()
