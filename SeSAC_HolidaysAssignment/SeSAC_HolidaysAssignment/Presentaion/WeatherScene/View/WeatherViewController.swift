@@ -43,9 +43,7 @@ final class WeatherViewController: BaseViewController, VMViewController {
         super.viewWillAppear(animated)
         
         setMapAnnotation()
-        viewModel.requestWeather()
-        viewModel.requestForecast()
-        print(LocationManager.shared.coordinate.latitude)
+        updateWeather()
     }
     
     // MARK: - Selectors
@@ -59,6 +57,25 @@ final class WeatherViewController: BaseViewController, VMViewController {
     }
     
     // MARK: - Helpers
+    
+    func updateWeather() {
+        let group = DispatchGroup()
+        
+        group.enter()
+        viewModel.requestWeather {
+            group.leave()
+        }
+        
+        group.enter()
+        viewModel.requestForecast {
+            group.leave()
+        }
+
+        group.notify(queue: .main) { [weak self] in
+            guard let self else { return }
+            viewModel.coordinator?.dismiss()
+        }
+    }
     
     override func configureView() {
         weatherView.detailWeatherCollectionView.delegate = self
@@ -188,12 +205,23 @@ extension WeatherViewController {
     }
     
     @objc func refreshData() {
-        viewModel.requestWeather()
-        viewModel.requestForecast()
+        let group = DispatchGroup()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) { [weak self] in
-            guard let self else { return }
-            weatherView.refreshControl.endRefreshing()
+        group.enter()
+        viewModel.requestWeather {
+            group.leave()
+        }
+        
+        group.enter()
+        viewModel.requestForecast {
+            group.leave()
+        }
+        
+        group.notify(queue: .main) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                guard let self else { return }
+                weatherView.refreshControl.endRefreshing()
+            }
         }
     }
 }

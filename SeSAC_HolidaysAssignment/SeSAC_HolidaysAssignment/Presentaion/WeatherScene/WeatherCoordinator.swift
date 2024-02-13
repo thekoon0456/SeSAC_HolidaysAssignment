@@ -41,10 +41,6 @@ final class WeatherCoordinator: Coordinator {
         vc.modalPresentationStyle = .overFullScreen
         vc.modalTransitionStyle = .crossDissolve
         navigationController?.present(vc, animated: false)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-            guard let self else { return }
-            dismiss()
-        }
     }
     
     func pushToSearchVC() {

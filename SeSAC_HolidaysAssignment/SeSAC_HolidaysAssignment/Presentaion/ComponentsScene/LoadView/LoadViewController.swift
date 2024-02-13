@@ -9,17 +9,25 @@ import UIKit
 
 final class LoadViewController: BaseViewController {
     
-    // MARK: - 로딩 로고 추가
+    // MARK: - Properties
+    
+    private let backgroundView = UIImageView().then {
+        $0.image = OWConst.BGImage.sunny.image
+        $0.contentMode = .scaleAspectFill
+        $0.alpha = 0.4
+    }
     
     override func configureHierarchy() {
-        
+        view.addSubview(backgroundView)
     }
     
     override func configureLayout() {
-        
+        backgroundView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     override func configureView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .black
     }
 }

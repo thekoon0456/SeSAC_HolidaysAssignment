@@ -24,7 +24,7 @@ final class WeatherViewModel: ViewModel {
     
     // MARK: - Helpers
     
-    func requestWeather() {
+    func requestWeather(completion: @escaping () -> Void) {
         let coord = UserDefaultsManager.shared.city.coord
         
         APIManager.shared.requestAPI(api: .locationWeather(lat: coord.lat, lon: coord.lon), type: CurrentWeather.self) { [weak self] result in
@@ -34,6 +34,7 @@ final class WeatherViewModel: ViewModel {
             case .success(var success):
                 currentWeather.onNext(success)
                 detailWeather.onNext(success.detailWeather)
+                completion()
             case .failure(let failure):
                 DispatchQueue.main.async {  [weak self] in
                     guard let self else { return }
@@ -43,7 +44,7 @@ final class WeatherViewModel: ViewModel {
                                            cancleButtonTitle: "확인",
                                            primaryAction: { [weak self] in
                         guard let self else { return }
-                        requestForecast()
+                        requestForecast { }
                     }, cancleAction: { [weak self] in
                         guard let self else { return }
                         coordinator?.dismiss()
@@ -54,7 +55,7 @@ final class WeatherViewModel: ViewModel {
         }
     }
     
-    func requestForecast() {
+    func requestForecast(completion: @escaping () -> Void) {
         let coord = UserDefaultsManager.shared.city.coord
         
         APIManager.shared.requestAPI(api: .locationForecast(lat: coord.lat, lon: coord.lon), type: Forecast.self) { [weak self] result in
@@ -63,6 +64,7 @@ final class WeatherViewModel: ViewModel {
             switch result {
             case .success(let success):
                 forecastWeather.onNext(success)
+                completion()
             case .failure(let failure):
                 DispatchQueue.main.async {  [weak self] in
                     guard let self else { return }
@@ -72,7 +74,7 @@ final class WeatherViewModel: ViewModel {
                                            cancleButtonTitle: "확인",
                                            primaryAction: { [weak self] in
                         guard let self else { return }
-                        requestForecast()
+                        requestForecast { }
                     }, cancleAction: { [weak self] in
                         guard let self else { return }
                         coordinator?.dismiss()
