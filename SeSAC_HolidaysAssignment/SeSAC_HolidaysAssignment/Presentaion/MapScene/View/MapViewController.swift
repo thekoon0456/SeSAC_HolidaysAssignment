@@ -112,10 +112,11 @@ extension MapViewController: MKMapViewDelegate {
         let lat = annotation.coordinate.latitude
         let lon = annotation.coordinate.longitude
         let location = CLLocation(latitude: lat, longitude: lon)
-
+        
         locationManager.getPlacemark(location: location) { [weak self] locality, country in
             guard let self else { return }
-            viewModel.coordinator?.showMapAlert(location: locality) {                UserDefaultsManager.shared.city = City(id: 0,
+            viewModel.coordinator?.showMapAlert(location: locality) {
+                UserDefaultsManager.shared.city = City(id: 0,
                                                        name: locality,
                                                        country: country,
                                                        coord: CityCoord(lat: lat, lon: lon))
