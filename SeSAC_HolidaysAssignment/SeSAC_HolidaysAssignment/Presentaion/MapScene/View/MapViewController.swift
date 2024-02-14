@@ -37,7 +37,7 @@ final class MapViewController: BaseViewController, VMViewController {
     
     init(viewModel: MapViewModel) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+        super.init()
     }
     
     override func viewDidLoad() {

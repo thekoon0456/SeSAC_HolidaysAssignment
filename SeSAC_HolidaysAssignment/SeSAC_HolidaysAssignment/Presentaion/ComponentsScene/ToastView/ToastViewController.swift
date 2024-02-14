@@ -28,7 +28,7 @@ final class ToastViewController: BaseViewController {
     
     init(cityName: String) {
         self.cityName = cityName
-        super.init(nibName: nil, bundle: nil)
+        super.init()
     }
     
     // MARK: - Helpers

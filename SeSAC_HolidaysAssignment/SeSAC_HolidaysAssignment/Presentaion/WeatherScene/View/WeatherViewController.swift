@@ -20,7 +20,7 @@ final class WeatherViewController: BaseViewController, VMViewController {
     init(viewModel: WeatherViewModel) {
         self.viewModel = viewModel
         weatherView = WeatherView()
-        super.init(nibName: nil, bundle: nil)
+        super.init()
     }
     
     override func loadView() {

@@ -9,8 +9,8 @@ import UIKit
 
 class BaseViewController: UIViewController {
     
-    override init(nibName: String?, bundle: Bundle?) {
-        super.init(nibName: nibName, bundle: bundle)
+    init() {
+        super.init(nibName: nil, bundle: nil)
     }
     
     override func viewDidLoad() {

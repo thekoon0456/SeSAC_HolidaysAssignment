@@ -43,7 +43,7 @@ final class CitySearchViewController: BaseViewController, VMViewController {
     
     init(viewModel: SearchViewModel) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+        super.init()
     }
     
     override func viewDidLoad() {
