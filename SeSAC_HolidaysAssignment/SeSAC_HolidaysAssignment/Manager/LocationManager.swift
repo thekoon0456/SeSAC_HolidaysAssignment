@@ -77,5 +77,8 @@ final class LocationManager {
         location = CLLocation(latitude: selectedCoord.lat, longitude: selectedCoord.lon)
         coordinate = CLLocationCoordinate2D(latitude: selectedCoord.lat,
                                             longitude: selectedCoord.lon)
+        region = MKCoordinateRegion(center: coordinate,
+                                    latitudinalMeters: OWConst.Map.defaultMeter.value,
+                                    longitudinalMeters: OWConst.Map.defaultMeter.value)
     }
 }

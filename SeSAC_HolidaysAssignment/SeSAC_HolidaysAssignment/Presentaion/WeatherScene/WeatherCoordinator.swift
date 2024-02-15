@@ -58,11 +58,11 @@ final class WeatherCoordinator: Coordinator {
     func showMapAlert(location: String, action: (() -> Void)?) {
         showAlert(title: "\(location)",
                   message: OWConst.Ment.setLocation.text,
-                  primaryButtonTitle: OWConst.Ment.setting.text) { [weak self] in
+                  primaryButtonTitle: OWConst.Ment.setting.text) { [weak self] _ in
             guard let self else { return }
             action?()
             pop()
-        } cancleAction: { [weak self] in
+        } cancleAction: { [weak self] _ in
             guard let self else { return }
             dismiss()
         }

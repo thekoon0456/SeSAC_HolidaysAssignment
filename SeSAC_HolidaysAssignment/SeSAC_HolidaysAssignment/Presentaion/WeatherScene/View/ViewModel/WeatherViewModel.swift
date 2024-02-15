@@ -42,10 +42,10 @@ final class WeatherViewModel: ViewModel {
                                            message: failure.description,
                                            primaryButtonTitle: OWConst.Ment.retry.text,
                                            cancleButtonTitle: OWConst.Ment.ok.text,
-                                           primaryAction: { [weak self] in
+                                           primaryAction: { [weak self] _ in
                         guard let self else { return }
                         requestForecast { }
-                    }, cancleAction: { [weak self] in
+                    }, cancleAction: { [weak self] _ in
                         guard let self else { return }
                         coordinator?.dismiss()
                     })
@@ -72,10 +72,10 @@ final class WeatherViewModel: ViewModel {
                                            message: failure.description,
                                            primaryButtonTitle: OWConst.Ment.retry.text,
                                            cancleButtonTitle: OWConst.Ment.ok.text,
-                                           primaryAction: { [weak self] in
+                                           primaryAction: { [weak self] _ in
                         guard let self else { return }
                         requestForecast { }
-                    }, cancleAction: { [weak self] in
+                    }, cancleAction: { [weak self] _ in
                         guard let self else { return }
                         coordinator?.dismiss()
                     })
